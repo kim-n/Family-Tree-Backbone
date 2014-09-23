@@ -1,5 +1,6 @@
 App.Collections.Trees = Backbone.Collection.extend({
   model: App.Models.Tree,
+  
   url: "/api/trees",
   
   getOrFetch: function (id) {
