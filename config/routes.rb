@@ -3,9 +3,13 @@ Rails.application.routes.draw do
   
   namespace :api, :defaults => {:format => :json} do
     resources :trees, :only => [:index, :create, :show] do
-      resources :people, :only => [:index, :create, :show]
+      resources :people, :only => [:index]
     end
+    
+    resources :people, :only => [:create, :show]
   end
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

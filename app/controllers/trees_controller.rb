@@ -18,6 +18,7 @@ class Api::TreesController < ApplicationController
   
   def show
     @tree = Tree.find(params[:id])
+    @people = @tree.people
     render "show"
   end
 

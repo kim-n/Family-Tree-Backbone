@@ -23,7 +23,6 @@ App.Routers.AppRouter = Backbone.Router.extend({
   
   treesShow: function (id) {
     var tree = App.Collections.trees.getOrFetch(id);
-    tree.people().fetch();
     
     var showView = new App.Views.TreesShow({
       model: tree
