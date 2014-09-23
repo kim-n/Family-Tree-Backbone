@@ -1,9 +1,10 @@
 class Person < ActiveRecord::Base
   validates :name, :presence => true
   
+  belongs_to :tree, class_name: "Tree", foreign_key: :tree_id, inverse_of: :people
   
-  has_many :spouse_one_ships, :class_name => "Spouseship", :foreign_key => :spouse_two_id, :inverse_of => :spouse_two
-  has_many :spouse_two_ships, :class_name => "Spouseship", :foreign_key => :spouse_one_id, :inverse_of => :spouse_one
+  has_many :spouse_one_ships, class_name: "Spouseship", foreign_key: :spouse_two_id, inverse_of: :spouse_two
+  has_many :spouse_two_ships, class_name: "Spouseship", foreign_key: :spouse_one_id, inverse_of: :spouse_one
   
   has_many :spouse_ones, through: :spouse_one_ships
   has_many :spouse_twos, through: :spouse_two_ships

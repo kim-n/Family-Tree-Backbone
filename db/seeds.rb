@@ -6,8 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+tree = Tree.create(name: "FIRST TREE")
+
 names = %w(Leslie Alexander Kimberly Dee Aleister)
 
 names.each do |person_name|
-  Person.create!(name: person_name)
+  Person.create!(name: person_name, tree_id: tree.id)
 end

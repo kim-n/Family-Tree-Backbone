@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140923022435) do
+ActiveRecord::Schema.define(version: 20140923035209) do
 
   create_table "people", force: true do |t|
     t.string   "name",       default: "Unknown", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "tree_id"
   end
 
   create_table "spouseships", id: false, force: true do |t|
@@ -26,5 +27,11 @@ ActiveRecord::Schema.define(version: 20140923022435) do
 
   add_index "spouseships", ["spouse_one_id", "spouse_two_id"], name: "index_spouseships_on_spouse_one_id_and_spouse_two_id"
   add_index "spouseships", ["spouse_two_id", "spouse_one_id"], name: "index_spouseships_on_spouse_two_id_and_spouse_one_id"
+
+  create_table "trees", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
