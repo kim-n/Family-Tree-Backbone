@@ -1,10 +1,18 @@
 <h2>Index</h2>
 
+<button class="refresh">Refresh </button>
+
+
 <ul>
   <% trees.each( function (tree) { %>
-    <li><%= tree.get("name") %></li>
+    <li>
+      <a href="#/trees/ <%= tree.id %>">
+        <%= tree.get("name") %>
+      </a>
+    </li>
   <% })%>
 </ul>
 
-<button class="refresh">Refresh </button>
+<a href="#/trees/new">New Tree</a>
+
 

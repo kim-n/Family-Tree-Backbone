@@ -1,4 +1,4 @@
-App.Views.TreeNew = Backbone.View.extend({
+App.Views.TreesNew = Backbone.View.extend({
   template: JST["trees/new"],
   
   events: {
@@ -21,7 +21,10 @@ App.Views.TreeNew = Backbone.View.extend({
     console.log(App.Collections.trees)
     
     newTree.save({}, {
-      success: function () { App.Collections.trees.add(newTree) }
-    })
+      success: function () { 
+        App.Collections.trees.add(newTree);
+      Backbone.history.navigate("/", { trigger: true });
+     }
+    });
   }
 });

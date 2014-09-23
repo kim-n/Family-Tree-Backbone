@@ -1,0 +1,10 @@
+<h1><%= tree.get("name") %></h1>
+
+
+<ul>
+  <% people.each(function (person) { %> 
+    <li><%= person.get("name") %></li>
+  <% }) %>
+</ul>
+
+<a href="#/">Back to Index</a>
