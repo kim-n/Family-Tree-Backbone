@@ -1,1 +1,1 @@
-json.partial!("tree", :tree => @tree, :people => @people)
+json.partial!("tree", :tree => @tree, :people => @people, :spouseships => @spouseships)

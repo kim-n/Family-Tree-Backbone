@@ -20,13 +20,15 @@ ActiveRecord::Schema.define(version: 20140923035209) do
     t.integer  "tree_id"
   end
 
-  create_table "spouseships", id: false, force: true do |t|
-    t.integer "spouse_one_id", null: false
-    t.integer "spouse_two_id", null: false
+  create_table "spouseships", force: true do |t|
+    t.integer  "spouse_one_id", null: false
+    t.integer  "spouse_two_id", null: false
+    t.integer  "tree_id",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "spouseships", ["spouse_one_id", "spouse_two_id"], name: "index_spouseships_on_spouse_one_id_and_spouse_two_id"
-  add_index "spouseships", ["spouse_two_id", "spouse_one_id"], name: "index_spouseships_on_spouse_two_id_and_spouse_one_id"
+  add_index "spouseships", ["tree_id"], name: "index_spouseships_on_tree_id"
 
   create_table "trees", force: true do |t|
     t.string   "name"

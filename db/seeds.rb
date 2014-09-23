@@ -13,3 +13,5 @@ names = %w(Leslie Alexander Kimberly Dee Aleister)
 names.each do |person_name|
   Person.create!(name: person_name, tree_id: tree.id)
 end
+
+Spouseship.create(spouse_one_id: 1, spouse_two_id: 4, tree_id: 1)
