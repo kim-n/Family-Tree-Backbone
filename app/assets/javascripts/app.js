@@ -7,11 +7,16 @@ window.App = {
     
     App.Collections.trees.fetch()
     
-    var view = new App.Views.TreesIndex({
+    console.log(App.Collections);
+    
+    var indexView = new App.Views.TreesIndex({
       collection: App.Collections.trees
     });
     
-    $('body').append(view.render().$el)
+    $('body').append(indexView.$el);
+    
+    var newView = new App.Views.TreeNew();
+    $("body").append(newView.render().$el)
     
   }
 };
