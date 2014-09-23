@@ -2,18 +2,18 @@ class Api::PeopleController < ApplicationController
   
   def index
     @people = Person.where(tree_id: params[:tree_id])
-    render :json => @people
+    render "index"
   end
   
   def show
     @person = Person.find(params[:id])
-    render :json => @person
+    render "show"
   end
 
   def create
     @person = Person.new(self.person_params)
     if @person.save
-      render :json => @person
+      render "show"
     else
       render :json => @person.errors, :status => :unprocessable_entity
     end

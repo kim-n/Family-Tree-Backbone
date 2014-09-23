@@ -1,0 +1,1 @@
+json.(person, :id, :tree_id, :name, :created_at, :updated_at)

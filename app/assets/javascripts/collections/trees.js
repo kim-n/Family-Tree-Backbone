@@ -7,7 +7,9 @@ App.Collections.Trees = Backbone.Collection.extend({
     var trees = this;
     
     var tree;
-    if (!(tree = this.get(id))) {
+    if ( tree = this.get(id) ) {
+      tree.fetch();
+    } else {
       tree = new App.Models.Tree({ id: id });
       tree.fetch({
         success: function () { trees.add(tree) }
