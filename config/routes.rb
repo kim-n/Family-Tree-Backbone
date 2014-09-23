@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'site#root'
+  
   namespace :api do
     resources :trees, :only => [:index, :create, :show] do
       resources :people, :only => [:index, :create, :show]

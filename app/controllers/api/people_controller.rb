@@ -1,7 +1,7 @@
 class Api::PeopleController < ApplicationController
   
   def index
-    @people = Person.all
+    @people = Person.where(tree_id: params[:tree_id])
     render :json => @people
   end
   
@@ -22,6 +22,15 @@ class Api::PeopleController < ApplicationController
   def update
     @person = Person.find(params[:id])
     if @person.update_attributes(self.person_params)
+      render :json => @person
+    else
+      render :json => @person.errors, :status => :unprocessable_entity
+    end
+  end
+  
+  def destroy
+    @person = Person.find(params[:id])
+    if @person.destroy
       render :json => @person
     else
       render :json => @person.errors, :status => :unprocessable_entity
