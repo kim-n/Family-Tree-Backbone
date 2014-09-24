@@ -1,3 +1,6 @@
+// Assumes App.Model.currentTree is loaded as well as 
+// App.Models.currentTree.people()
+
 App.Views.PeopleShow = Backbone.View.extend({
   template: JST["people/show"],
 
@@ -6,7 +9,6 @@ App.Views.PeopleShow = Backbone.View.extend({
     
     allpeople = this.collection
     var renderedContent = this.template({ 
-      people: this.collection,
       id: this.id
     });
         

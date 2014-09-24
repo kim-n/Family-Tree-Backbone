@@ -23,7 +23,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
   
   treesShow: function (id, person_id) {
-    var tree = App.Collections.trees.getOrFetch(id);
+    var tree = App.Models.currentTree = App.Collections.trees.getOrFetch(id);
     
     var background = new App.Views.Background();
     
@@ -37,7 +37,6 @@ App.Routers.AppRouter = Backbone.Router.extend({
 
     if (parseInt(person_id) !== NaN){
       var showPersonView = new App.Views.PeopleShow({
-        collection: tree.people(),
         id: parseInt(person_id)
       });
 
