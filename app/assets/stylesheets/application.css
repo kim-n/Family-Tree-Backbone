@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+
+.list-people {
+  float: left;
+} 
+
+.display-person {
+  float: left;
+}
