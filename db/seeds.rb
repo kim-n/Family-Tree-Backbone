@@ -8,10 +8,12 @@
 
 tree = Tree.create(name: "FIRST TREE")
 
-names = %w(Leslie Alexander Kimberly Dee Aleister)
+names = %w(Leslie Alexander Kimberly Dee Aleister Grandmother Grandfather SecondWife)
 
 names.each do |person_name|
   Person.create!(name: person_name, tree_id: tree.id)
 end
 
 Spouseship.create(spouse_one_id: 1, spouse_two_id: 4, tree_id: 1)
+Spouseship.create(spouse_one_id: 8, spouse_two_id: 1, tree_id: 1)
+Spouseship.create(spouse_one_id: 6, spouse_two_id: 7, tree_id: 1)

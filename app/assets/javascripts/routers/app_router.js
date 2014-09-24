@@ -35,13 +35,14 @@ App.Routers.AppRouter = Backbone.Router.extend({
 
     $(".list-people").html(showView.render().$el);
 
-    if (parseInt(person_id) !== NaN){
-      var showPersonView = new App.Views.PeopleShow({
-        id: parseInt(person_id)
-      });
-
-      $(".display-person").html(showPersonView.render().$el)
-    }
+    // if (parseInt(person_id) !== NaN){
+    //   var showPersonView = new App.Views.PeopleShow({
+    //     id: parseInt(person_id)
+    //   });
+    //
+    //   $(".display-person").html(showPersonView.render().$el)
+    // }
+    
   }
   // treesShow: function (id, person_id) {
   //   var tree = App.Collections.trees.getOrFetch(id);
