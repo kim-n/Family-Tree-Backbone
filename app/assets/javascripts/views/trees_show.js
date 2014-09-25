@@ -7,6 +7,7 @@ App.Views.TreesShow = Backbone.View.extend({
   },
   
   render: function () {
+    alert("hello");
     console.log(" Tree show rendered ")
     var renderedContent = this.template({ 
       tree: this.model,

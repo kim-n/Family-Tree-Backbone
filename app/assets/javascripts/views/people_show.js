@@ -135,7 +135,7 @@ App.Views.PeopleShow = Backbone.View.extend({
       } 
     }
 
-    var $line = drawLine({
+    var $line = this.drawLine({
       "width": new_width,
       "left": new_left,
       "top": new_top
@@ -341,7 +341,7 @@ App.Views.PeopleShow = Backbone.View.extend({
     // $('.person').css({"top": 0, "left": 0})
     $('.line').remove();
     this.printPeople(WINDOW_SIZE, maxLevel);
-    // this.printLines($FIRST_PERSON);
+    this.printLines($FIRST_PERSON);
   },
 
   maxes: function (){

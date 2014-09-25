@@ -22,46 +22,39 @@ App.Routers.AppRouter = Backbone.Router.extend({
     $("body").append(newView.render().$el)
   },
   
+  // Expect hash with { el_to_replace_html: view}
+  populateView: function (views_hash) {
+    var keys = Object.keys(views_hash);
+    var view;
+    
+    this._currentViews = this._currentViews || []
+    
+    _.each(this._currentViews, function (view) {
+      view.remove();
+    });
+    
+    var appRouter = this;
+    _.each(keys, function(key) {
+      view = views_hash[key];
+      $(key).html(view.render().$el);
+      
+      appRouter._currentViews.push(view);
+    });
+  },
+  
   treesShow: function (id, person_id) {
     var tree = App.Models.currentTree = App.Collections.trees.getOrFetch(id);
     
     var background = new App.Views.Background();
-    
-    $("body").html(background.render().$el);
 
     var showView = new App.Views.TreesShow({
       model: tree
     });
-
-    $("#left-section").html(showView.render().$el);
-
-    // if (parseInt(person_id) !== NaN){
-    //   var showPersonView = new App.Views.PeopleShow({
-    //     id: parseInt(person_id)
-    //   });
-    //
-    //   $(".display-person").html(showPersonView.render().$el)
-    // }
+    
+    this.populateView({
+      "body"          : background,
+      "#left-section" : showView
+    });
     
   }
-  // treesShow: function (id, person_id) {
-  //   var tree = App.Collections.trees.getOrFetch(id);
-  //
-  //   var showView = new App.Views.TreesShow({
-  //     model: tree
-  //   });
-  //
-  //   $("body").html(showView.render().$el);
-  //
-  //   if (parseInt(person_id) !== NaN){
-  //     var showPersonView = new App.Views.Show({
-  //       collection: tree.people(),
-  //       id: parseInt(person_id)
-  //     });
-  //
-  //     $(".display").html(showPersonView.render().$el)
-  //   } else {
-  //
-  //   }
-  // }
 });
