@@ -1,6 +1,5 @@
-<h3><%= person.escape("name") %></h3>
 
-
+<div class="people-container">
   <% _.each(person.print_info(), function (info) {  %>
 
     <div id="<%= info.person.id %>" class="<%= info.classes %>">
@@ -10,5 +9,7 @@
     </div>
 
   <% }) %>
+  
+</div>
   
 

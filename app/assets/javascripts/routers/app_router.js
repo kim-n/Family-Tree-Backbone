@@ -33,7 +33,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
       model: tree
     });
 
-    $(".list-people").html(showView.render().$el);
+    $("#left-section").html(showView.render().$el);
 
     // if (parseInt(person_id) !== NaN){
     //   var showPersonView = new App.Views.PeopleShow({
