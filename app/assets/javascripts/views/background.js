@@ -38,10 +38,11 @@ App.Views.Background = Backbone.View.extend({
   
   display: function (event){
     event.preventDefault();
+    
     var person_id = $(event.currentTarget).data("pid");
 
     var showPersonView = new App.Views.PeopleShow({
-      id: person_id
+      pid: person_id
     });
 
     this.populateView({ "#main": showPersonView});

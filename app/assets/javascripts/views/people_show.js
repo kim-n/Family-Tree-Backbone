@@ -3,19 +3,75 @@
 
 App.Views.PeopleShow = Backbone.View.extend({
   template: JST["people/show"],
-
+  
+  events: {
+    "mouseover .person-object": "highlight",
+    "mouseleave .person-object": "unhighlight"
+    
+  },
+  initialize: function (options){
+    this.pid = options.pid;
+  },
+  
   render: function () {
     console.log(" people show rendered ")
-
-    var person = App.Models.currentTree.people().get(this.id)
+    
+    var person = App.Models.currentTree.people().get(this.pid)
 
     var renderedContent = this.template({ 
       person: person
     });
+    
         
     this.$el.append(renderedContent);
+    this.delegateEvents();
     
     return this;
+  },
+  
+  highlight: function (event) {  
+
+    var $person = $(event.currentTarget).parent();
+    
+    var person_id = $person.attr("id");
+    
+    $person.children('.person-object').css({"border" : "2px solid red"})
+      
+    var list_spouses =  [];
+      
+    if($person.hasClass('child')){
+      list_spouses = $(".spouse." + person_id);
+    }
+    else if($person.hasClass('spouse')){
+      var lastClass = $person.attr('class').split(' ').pop();
+      var $spouse = $('#'+lastClass);
+      list_spouses = [$spouse];
+    }
+  
+    for(var i = 0; i < list_spouses.length; i++){
+      var $spouse = $(list_spouses[i]);
+      $spouse.children('.person-object').css({"border" : "2px solid red"})
+      var spouse_id = $spouse.attr("id");
+      var list_children = $(".child." + spouse_id + "." + person_id);
+
+      for(var j = 0; j < list_children.length; j++){
+        var $child = $(list_children[j]);
+        $child.children('.person-object').css({"border" : "2px solid red"})
+    
+      }
+      $('.parent-line.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 0});
+      $('.child-line.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 0});
+      $('.spouse-line.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 0});
+      $('.horizontal-line.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 0});
+      $('.dot.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 3});
+    }
+    
+  },
+  
+  unhighlight: function (event) {
+    $('.person-object').css({"border": "2px solid transparent"});
+    $('.line').css({"background": "green", "z-index" : -1});
+    $('.dot').css({"background" : "green", "z-index" : 3});   
   },
   
   // Utility: drawing lines
