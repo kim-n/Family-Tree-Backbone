@@ -15,6 +15,27 @@ App.Views.Background = Backbone.View.extend({
     return this;
   },
   
+  // Duplicate function in AppRouter
+  // Expect hash with { el_to_replace_html: view}
+  populateView: function (views_hash) {
+    var keys = Object.keys(views_hash);
+    var view;
+    
+    this._currentViews = this._currentViews || []
+    
+    _.each(this._currentViews, function (view) {
+      view.remove();
+    });
+    
+    var mainView = this;
+    _.each(keys, function(key) {
+      view = views_hash[key];
+      $(key).html(view.render().$el);
+      
+      mainView._currentViews.push(view);
+    });
+  },
+  
   display: function (event){
     event.preventDefault();
     var person_id = $(event.currentTarget).data("pid");
@@ -23,8 +44,8 @@ App.Views.Background = Backbone.View.extend({
       id: person_id
     });
 
-    $("#main").html(showPersonView.render().$el)
-    showPersonView.display();
+    this.populateView({ "#main": showPersonView});
+    showPersonView.makePretty();
 
   }
 });

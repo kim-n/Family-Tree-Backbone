@@ -6,7 +6,7 @@ App.Views.PeopleShow = Backbone.View.extend({
 
   render: function () {
     console.log(" people show rendered ")
-    
+
     var person = App.Models.currentTree.people().get(this.id)
 
     var renderedContent = this.template({ 
@@ -20,8 +20,10 @@ App.Views.PeopleShow = Backbone.View.extend({
   
   // Utility: drawing lines
   drawLine: function (properties, classes){  
-    classes = typeof classes !== 'undefined' ? classes : "";  // if no class is given
-  
+    classes = typeof classes !== 'undefined' ? classes : "";  // if no class is given 
+    
+    $CONTAINER = $('.people-container');  // FIX: hardcoded container
+    
     $CONTAINER.append("<div class='line current-line "+ classes +"'></div>")
   
     var $line = $('.current-line')
@@ -51,17 +53,17 @@ App.Views.PeopleShow = Backbone.View.extend({
 
   changeWindowSize: function (newValue) {
     WINDOW_SIZE = parseInt(newValue);
-    this.make_pretty();
+    this.display();
   },
 
   changeSpaceBtwLevel: function (newValue){
-    SPACE_BETWEEN_LEVEL = parseInt(newValue);  //50
-    this.make_pretty();
+    SPACE_btw_LEVEL = parseInt(newValue);  //50
+    this.display();
   },
 
   changeSpaceBtwPeople: function (newValue){
-    SPACE_BETWEEN_PEOPLE = parseInt(newValue);  //30
-    this.make_pretty();
+    SPACE_btw_PEOPLE = parseInt(newValue);  //30
+    this.display();
   },
 
   check_line_intersection: function ($line){
@@ -228,11 +230,11 @@ App.Views.PeopleShow = Backbone.View.extend({
   },
 
   // Print vertical line from parentsLine to children
-  printLineToChildren: function ($person, spouse_id, modifier){
+  printLineToChildren: function ($person, spouse_id, modifier, space_btw_people){
     var start_pos = $person.position();
   
     var classes = "parent-line " + $person.attr("id")+ ' ' + spouse_id
-    var new_left = start_pos.left - (SPACE_BETWEEN_PEOPLE/2); // subtract half of SPACE_BETWEEN_PEOPLE to center line between people
+    var new_left = start_pos.left - (space_btw_people/2); // subtract half of SPACE_btw_PEOPLE to center line between people
     var new_top = start_pos.top  + modifier * 78;
 
     this.drawLine({
@@ -243,14 +245,14 @@ App.Views.PeopleShow = Backbone.View.extend({
 
 
   // Print lines between spouses
-  printLineToSpouse: function ($person, $spouse, modifier) {
+  printLineToSpouse: function ($person, $spouse, person_object_width, modifier) {
     var start_pos = $person.position();
     var end_pos = $spouse.position();
     var classes = $person.attr("id") + " " + $spouse.attr("id");
   
-    var horizontal_distance = Math.abs($person.position().left - $spouse.position().left) - PERSON_OBJECT_WIDTH;
+    var horizontal_distance = Math.abs($person.position().left - $spouse.position().left) - person_object_width;
   
-    var line_left = $person.position().left + $person.width()/2 + PERSON_OBJECT_WIDTH/2;   // start of line is right of $person
+    var line_left = $person.position().left + $person.width()/2 + person_object_width/2;   // start of line is right of $person
   
     var line_top = $person.position().top + $person.height() - $person.height()*modifier // line height should be in middle of $person height
   
@@ -273,27 +275,27 @@ App.Views.PeopleShow = Backbone.View.extend({
 
 
   // Delegates printing of all lines
-  printLines: function ($person){
+  printLines: function ($person, person_object_width, space_btw_people){
     var person_id = $person.attr("id");
     var list_spouses = $(".spouse." + person_id)
     for(var i = 0; i < list_spouses.length; i++){
       var $spouse = $(list_spouses[i]);
 
       // print horizontal line between spouses
-      this.printLineToSpouse($person, $spouse, (i+1)/(list_spouses.length+1))
+      this.printLineToSpouse($person, $spouse, person_object_width, (i+1)/(list_spouses.length+1))
     
       var spouse_id = $spouse.attr("id");
       var list_children = $(".child." + spouse_id + "." + person_id);
     
       if(list_children.length > 0){
         // print vertical line below line between parents
-        this.printLineToChildren($spouse, person_id,  (list_spouses.length-i)/(list_spouses.length+1))
+        this.printLineToChildren($spouse, person_id,  (list_spouses.length-i)/(list_spouses.length+1), space_btw_people )
       }
     
       for(var j = 0; j < list_children.length; j++){
         var $child = $(list_children[j]);
         // recursive call to print children
-        this.printLines($child, (i+1)/(list_spouses.length+1));
+        this.printLines($child, person_object_width, space_btw_people);
       
         // prints vertical live above person
         this.printLineToParent($child, spouse_id, person_id)
@@ -311,37 +313,35 @@ App.Views.PeopleShow = Backbone.View.extend({
 
 
   // prints people onto page based on Level-# class
-  printByLevel: function (window_size, level_num){
+  printByLevel: function (window_size, level_num, space_btw_people, space_btw_level){
     var $people = $(".Level-" + level_num); // all people at level level_num
 
-    var margin = (window_size)/ ($people.length) +  (SPACE_BETWEEN_PEOPLE * $people.length-1)// max horizontal space allowed per person
+    var margin = (window_size)/ ($people.length) +  (space_btw_people * $people.length-1)// max horizontal space allowed per person
   
     for(var i = 0; i < $people.length; i++){
       var $person = $($people[i]);
-      $person.width(margin-SPACE_BETWEEN_PEOPLE); // set width of person object to be max allowed horizonal space
+      $person.width(margin-space_btw_people); // set width of person object to be max allowed horizonal space
                                                   // minus the specified space between 2 people
     
-      $person.css("top", SPACE_BETWEEN_LEVEL * level_num);  // position relative to top of parent people-container
+      $person.css("top", space_btw_level * level_num);  // position relative to top of parent people-container
       $person.css("left", margin * i); // position relative to left of parent people-container
     }
   },
 
 
-  printPeople: function (window_size, max_level){
+  printPeople: function (window_size, max_level, space_btw_people, space_btw_level){
     var level = 0;  // initial level
   
     while(level <= max_level){
-      this.printByLevel(window_size, level);
+      this.printByLevel(window_size, level, space_btw_people, space_btw_level);
       level++;
     }
   },
 
-  make_pretty: function () {
-    console.log(WINDOW_SIZE, SPACE_BETWEEN_LEVEL, SPACE_BETWEEN_PEOPLE)
-    // $('.person').css({"top": 0, "left": 0})
+  display: function ($first_person, max_level, window_size, space_btw_level, space_btw_people, person_object_width) {
     $('.line').remove();
-    this.printPeople(WINDOW_SIZE, maxLevel);
-    this.printLines($FIRST_PERSON);
+    this.printPeople(window_size, max_level, space_btw_people, space_btw_level);
+    this.printLines($first_person, person_object_width, space_btw_people);
   },
 
   maxes: function (){
@@ -356,28 +356,29 @@ App.Views.PeopleShow = Backbone.View.extend({
     return [level, max_people]
   },
   
-  display: function () {
-    max = this.maxes();
-    maxPeople = max[1];
-    maxLevel = max[0];
+  makePretty: function () {
+    var max = this.maxes();
+    var maxPeople = max[1];
+    var maxLevel = max[0];
  
     // Globals
-    SPACE_BETWEEN_LEVEL = 150;  //50
-    SPACE_BETWEEN_PEOPLE = 20;  //30
-    MIN_PERSON_WIDTH = 90;  //90
-    PEOPLE_HEIGHT = 30; //30
-    PERSON_OBJECT_WIDTH = 75;
+    var SPACE_BTW_LEVEL = 150;  //50
+    var SPACE_BTW_PEOPLE = 20;  //30
+    var MIN_PERSON_WIDTH = 90;  //90
+    var PEOPLE_HEIGHT = 30; //30
+    var PERSON_OBJECT_WIDTH = 75;
 
-    WINDOW_SIZE = (MIN_PERSON_WIDTH + SPACE_BETWEEN_PEOPLE) * (maxPeople + 1);
-    $CONTAINER = $('.people-container')
-    $FIRST_PERSON = $($('.child')[0]);
+    var WINDOW_SIZE = (MIN_PERSON_WIDTH + SPACE_BTW_PEOPLE) * (maxPeople + 1);
+    var $CONTAINER = $('.people-container') // hard coded in draw-line
+    var $FIRST_PERSON = $($('.child')[0]);
 
    $('#window-size').val(WINDOW_SIZE);
-   $('#level-space').val(SPACE_BETWEEN_LEVEL);
-   $('#people-space').val(SPACE_BETWEEN_PEOPLE);
+   $('#level-space').val(SPACE_BTW_LEVEL);
+   $('#people-space').val(SPACE_BTW_PEOPLE);
+      
 
    // Prints people, then lines
-   this.make_pretty();
+   this.display($FIRST_PERSON, maxLevel, WINDOW_SIZE, SPACE_BTW_LEVEL, SPACE_BTW_PEOPLE, PERSON_OBJECT_WIDTH);
   }
   
 });
