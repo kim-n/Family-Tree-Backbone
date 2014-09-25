@@ -1,10 +1,14 @@
-<% spouse_list = spouse_list || [] %>
+<h3><%= person.escape("name") %></h3>
 
-<h1><%= person.escape("name") %></h1>
 
-  <% _.each(spouse_list, function (spouse) {  %>
-    <a class="show-person" data-pid="<%=spouse.escape("id")%>" href="#"><%= spouse.escape("name") %></a>
+  <% _.each(person.print_info(), function (info) {  %>
+
+    <div id="<%= info.person.id %>" class="<%= info.classes %>">
+      <div class="person-object">
+        <a class="show-person" data-pid="<%= info.person.id %>" href="#"><%= info.person.escape("name") %></a>
+      </div>
+    </div>
+
   <% }) %>
+  
 
-
-<a href="#/">Back to Index</a>

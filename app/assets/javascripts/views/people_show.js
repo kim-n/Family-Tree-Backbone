@@ -3,6 +3,10 @@
 
 App.Views.PeopleShow = Backbone.View.extend({
   template: JST["people/show"],
+  
+  make_pretty: function () {
+    $(".display-person").css({"background": "green"})
+  },
 
   render: function () {
     console.log(" people show rendered ")
@@ -10,8 +14,7 @@ App.Views.PeopleShow = Backbone.View.extend({
     var person = App.Models.currentTree.people().get(this.id)
 
     var renderedContent = this.template({ 
-      person: person,
-      spouse_list: person.spouses()
+      person: person
     });
         
     this.$el.append(renderedContent);

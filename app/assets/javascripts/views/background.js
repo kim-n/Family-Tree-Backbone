@@ -24,6 +24,7 @@ App.Views.Background = Backbone.View.extend({
     });
 
     $(".display-person").html(showPersonView.render().$el)
+    showPersonView.make_pretty();
 
   }
 });
