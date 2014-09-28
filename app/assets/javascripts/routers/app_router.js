@@ -2,7 +2,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "": "treesIndex",
     "trees/new": "treesNew",
-    "trees/:id(/people/:person_id(/))": "treesShow",
+    "trees/:id(/people/:person_id(/))": "personShow",
     "trees/:id(*something)": "treesShow"
   },
   
@@ -42,7 +42,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
     });
   },
   
-  treesShow: function (id, person_id) {
+  treesShow: function (id) {
     var tree = App.Models.currentTree = App.Collections.trees.getOrFetch(id);
     
     var background = new App.Views.Background();
@@ -55,6 +55,30 @@ App.Routers.AppRouter = Backbone.Router.extend({
       "body"          : background,
       "#left-section" : showView
     });
+    
+  },
+  
+  personShow: function (id, person_id) {
+    var tree = App.Models.currentTree = App.Collections.trees.getOrFetch(id);
+    
+    var background = new App.Views.Background();
+
+    var showView = new App.Views.TreesShow({
+      model: tree
+    });
+    
+    this.populateView({
+      "body"          : background,
+      "#left-section" : showView
+    });
+    
+
+    var showPersonView = new App.Views.PeopleShow({
+      pid: person_id
+    });
+
+    background.populateView({ "#main": showPersonView});
+    showPersonView.makePretty();
     
   }
 });

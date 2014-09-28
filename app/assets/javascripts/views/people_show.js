@@ -5,10 +5,12 @@ App.Views.PeopleShow = Backbone.View.extend({
   template: JST["people/show"],
   
   events: {
+    "click .dot": "createChild",
     "mouseover .person-object": "highlight",
     "mouseleave .person-object": "unhighlight"
     
   },
+  
   initialize: function (options){
     this.pid = options.pid;
   },
@@ -29,6 +31,32 @@ App.Views.PeopleShow = Backbone.View.extend({
     return this;
   },
   
+  
+  createChild: function(event){
+    console.log("create child clicked")
+    var classes = $(event.currentTarget).attr("class").split(" ");
+
+    var parent_one_id = parseInt(classes.pop());
+    var parent_two_id = parseInt(classes.pop());
+  
+    var parents = App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_one_id, "spouse_two_id":parent_two_id}).concat(
+      App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_two_id, "spouse_two_id":parent_one_id})
+    );
+    
+    $(".add-child").remove()
+  
+    var newChildView = new App.Views.PersonNewChild({
+      className: "add-child",
+      parents_id: parents[0].id,
+      tree_id: App.Models.currentTree.id
+    });
+  
+    $('#main').append(newChildView.render().$el);
+    $(".add-child").css($(event.currentTarget).position())
+  
+  },
+    
+    
   highlight: function (event) {  
 
     var $person = $(event.currentTarget).parent();

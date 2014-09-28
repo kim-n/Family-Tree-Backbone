@@ -39,6 +39,6 @@ class Api::PeopleController < ApplicationController
   
   protected
   def person_params
-    self.params[:person].permit(:name)
+    self.params[:person].permit(:name, :tree_id, :parents_id)
   end
 end

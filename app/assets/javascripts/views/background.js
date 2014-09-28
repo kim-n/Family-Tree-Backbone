@@ -2,7 +2,7 @@ App.Views.Background = Backbone.View.extend({
   template: JST["background"],
   
   events: {
-    "click .show-person": "display"
+    "click .show-person": "display",
   },
   
   render: function () {
