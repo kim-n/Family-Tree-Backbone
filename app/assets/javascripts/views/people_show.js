@@ -8,14 +8,18 @@ App.Views.PeopleShow = Backbone.View.extend({
     "click .dot": "createChild",
     "mouseover .person-object": "highlight",
     "mouseleave .person-object": "unhighlight"
-    
   },
   
   initialize: function (options){
     this.pid = options.pid;
+    this.listenTo(App.Models.currentTree, "sync", this.render);
+    this.listenTo(App.Models.currentTree, "sync", this.makePretty);
   },
   
   render: function () {
+    this.$el.empty();
+    // this.remove();
+    this.unbind();
     console.log(" people show rendered ")
     
     var person = App.Models.currentTree.people().get(this.pid)
@@ -25,7 +29,7 @@ App.Views.PeopleShow = Backbone.View.extend({
     });
     
         
-    this.$el.append(renderedContent);
+    this.$el.html(renderedContent);
     this.delegateEvents();
     
     return this;

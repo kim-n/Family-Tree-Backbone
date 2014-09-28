@@ -12,7 +12,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
     var indexView = new App.Views.TreesIndex({
       collection: App.Collections.trees
     });
-    
+        
     $('body').html(indexView.$el);
     
   },
@@ -43,6 +43,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
   
   treesShow: function (id) {
+    console.log("TREE SHOW")
+    
     var tree = App.Models.currentTree = App.Collections.trees.getOrFetch(id);
     
     var background = new App.Views.Background();
@@ -72,13 +74,22 @@ App.Routers.AppRouter = Backbone.Router.extend({
       "#left-section" : showView
     });
     
-
     var showPersonView = new App.Views.PeopleShow({
       pid: person_id
     });
+    
+    this._removeCurrentViews
+
+    this.currentViews = [background, showView];
 
     background.populateView({ "#main": showPersonView});
     showPersonView.makePretty();
-    
+  },
+  
+  _removeCurrentViews: function (){
+    this.currentViews = this.currentViews || []
+    _(this._currentViews).each( function(view){
+      view.remove();
+    })
   }
-});
+ });

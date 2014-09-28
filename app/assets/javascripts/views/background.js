@@ -47,7 +47,11 @@ App.Views.Background = Backbone.View.extend({
 
     this.populateView({ "#main": showPersonView});
     showPersonView.makePretty();
-
+    
+    // Assumes #tree/:somenumber
+    var oldURL = Backbone.history.fragment.split("/");
+    var newURL = oldURL.shift() + "/" + oldURL.shift() + "/people/" + person_id;
+    Backbone.history.navigate(newURL);
   }
 });
 

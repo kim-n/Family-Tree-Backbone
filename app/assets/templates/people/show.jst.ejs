@@ -1,5 +1,6 @@
-
 <div class="people-container">
+
+<% if( person !== undefined){ %>
   <% _.each(person.print_info(), function (info) {  %>
 
     <div id="<%= info.person.id %>" class="<%= info.classes %>">
@@ -10,6 +11,7 @@
 
   <% }) %>
   
+<% } %>
 </div>
   
 
