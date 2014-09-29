@@ -28,9 +28,10 @@ App.Views.PersonNewChild = Backbone.View.extend({
     var newPerson = new App.Models.Person(params["person"]);
     
     newPerson.save({}, {
-      success: function () { 
+      success: function () {
+        $(".add-child").remove() 
         App.Models.currentTree.people().add(newPerson);
-      Backbone.history.navigate("/trees/" + App.Models.currentTree.id, { trigger: true });
+        App.Models.currentTree.fetch();
      }
     });
   }

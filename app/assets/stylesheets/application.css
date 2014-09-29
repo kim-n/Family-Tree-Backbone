@@ -334,3 +334,15 @@ main {
   background: lightgreen;
   z-index: 4;
 }
+
+
+.add-child,
+.new-spouse-button,
+.new-parents-button{
+ position: absolute; 
+ z-index: 3;
+}
+
+.new-spouse-button{
+  margin-top: 95px;
+}

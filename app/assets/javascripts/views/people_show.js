@@ -6,6 +6,7 @@ App.Views.PeopleShow = Backbone.View.extend({
   
   events: {
     "click .dot": "createChild",
+    "click .person-object": "showOptions",
     "mouseover .person-object": "highlight",
     "mouseleave .person-object": "unhighlight"
   },
@@ -48,16 +49,42 @@ App.Views.PeopleShow = Backbone.View.extend({
     );
     
     $(".add-child").remove()
-  
+    $(".button").remove()
     var newChildView = new App.Views.PersonNewChild({
-      className: "add-child",
+      className: "add-child button",
       parents_id: parents[0].id,
       tree_id: App.Models.currentTree.id
     });
   
-    $('#main').append(newChildView.render().$el);
+    $('.people-container').append(newChildView.render().$el);
     $(".add-child").css($(event.currentTarget).position())
+    console.log($(event.currentTarget).position())
   
+  },
+  
+  showOptions: function (event) {
+    console.log("options clicked")
+    var $personObject = $(event.currentTarget)
+    $(".new-parents-button").remove();
+    $(".new-spouse-button").remove();
+    
+    
+    $(".button").remove()
+    var newOptionsView = new App.Views.PersonShowOptions({
+      className: "button"
+    })
+    
+    var offset = ($personObject.parent().width() - $personObject.width() ) /2
+    
+    var newPositions = {
+      top: $personObject.parent().position().top - 15,
+      left: $personObject.parent().position().left + offset
+    }
+    $('.people-container').append(newOptionsView.render().$el);
+    $(".new-spouse-button").css(newPositions);
+    $(".new-parents-button").css(newPositions)
+    console.log($(event.currentTarget).parent().position())
+    
   },
     
     
