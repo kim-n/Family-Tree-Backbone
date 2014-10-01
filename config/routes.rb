@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     end
     
     resources :people, :only => [:create, :show]
+    resources :spouseships, :only => [:create, :show]
   end
   
   

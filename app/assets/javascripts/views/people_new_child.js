@@ -7,7 +7,7 @@ App.Views.PersonNewChild = Backbone.View.extend({
   },
   
   events: {
-    "submit form": "submit"
+    "submit form.new-child-form": "submit"
   },
   
   render: function () {

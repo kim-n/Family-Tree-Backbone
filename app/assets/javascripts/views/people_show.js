@@ -6,6 +6,7 @@ App.Views.PeopleShow = Backbone.View.extend({
   
   events: {
     "click .dot": "createChild",
+    "click .new-spouse-button": "newSpouseView",
     "click .person-object": "showOptions",
     "mouseover .person-object": "highlight",
     "mouseleave .person-object": "unhighlight"
@@ -37,6 +38,54 @@ App.Views.PeopleShow = Backbone.View.extend({
   },
   
   
+  showOptions: function (event) {
+    console.log("options clicked")
+    var $personObject = $(event.currentTarget)
+    $(".new-parents-button").remove();
+    $(".new-spouse-button").remove();
+    
+    var person_id = $personObject.attr("class").split(" ").pop();
+    
+    $(".button").remove()
+    var newOptionsView = new App.Views.PersonShowOptions({
+      className: "button",
+      person_id: person_id
+    })
+    
+    var offset = ($personObject.parent().width() - $personObject.width() ) /2
+    
+    var newPositions = {
+      top: $personObject.parent().position().top - 15,
+      left: $personObject.parent().position().left + offset
+    }
+    $('.people-container').append(newOptionsView.render().$el);
+    $(".new-spouse-button").css(newPositions);
+    $(".new-parents-button").css(newPositions)
+    console.log($(event.currentTarget).parent().position())
+    
+  },
+  
+  newSpouseView: function (event) {
+    console.log("create spouse clicked")
+    
+    event.preventDefault();
+    
+    var person_id = $(event.currentTarget).attr("class").split(" ").pop();
+    var person = App.Models.currentTree.people().get(person_id)
+    
+    
+    $(".add-spouse").remove()
+    $(".button").remove()
+    var newSpouseView = new App.Views.PersonNewSpouse({
+      className: "add-spouse button",
+      model: person
+    })
+    
+    $('body').append(newSpouseView.render().$el)
+
+  },
+  
+  
   createChild: function(event){
     console.log("create child clicked")
     var classes = $(event.currentTarget).attr("class").split(" ");
@@ -58,36 +107,10 @@ App.Views.PeopleShow = Backbone.View.extend({
   
     $('.people-container').append(newChildView.render().$el);
     $(".add-child").css($(event.currentTarget).position())
-    console.log($(event.currentTarget).position())
   
   },
   
-  showOptions: function (event) {
-    console.log("options clicked")
-    var $personObject = $(event.currentTarget)
-    $(".new-parents-button").remove();
-    $(".new-spouse-button").remove();
-    
-    
-    $(".button").remove()
-    var newOptionsView = new App.Views.PersonShowOptions({
-      className: "button"
-    })
-    
-    var offset = ($personObject.parent().width() - $personObject.width() ) /2
-    
-    var newPositions = {
-      top: $personObject.parent().position().top - 15,
-      left: $personObject.parent().position().left + offset
-    }
-    $('.people-container').append(newOptionsView.render().$el);
-    $(".new-spouse-button").css(newPositions);
-    $(".new-parents-button").css(newPositions)
-    console.log($(event.currentTarget).parent().position())
-    
-  },
-    
-    
+  
   highlight: function (event) {  
 
     var $person = $(event.currentTarget).parent();
@@ -350,7 +373,7 @@ App.Views.PeopleShow = Backbone.View.extend({
   
     var classes = "parent-line " + $person.attr("id")+ ' ' + spouse_id
     var new_left = start_pos.left - (space_btw_people/2); // subtract half of SPACE_btw_PEOPLE to center line between people
-    var new_top = start_pos.top  + modifier * 78;
+    var new_top = start_pos.top  + modifier * 78 + 2;
 
     this.drawLine({
       "left": new_left,

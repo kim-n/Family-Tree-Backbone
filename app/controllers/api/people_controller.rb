@@ -13,6 +13,12 @@ class Api::PeopleController < ApplicationController
   def create
     @person = Person.new(self.person_params)
     if @person.save
+      if params[:spouse_one_id]
+        @spouseship = Spouseship.new(spouse_one_id: params[:spouse_one_id],
+                                      spouse_two_id: @person.id,
+                                      tree_id: @person.tree_id)
+        @spouseship.save
+      end
       render "show"
     else
       render :json => @person.errors, :status => :unprocessable_entity
@@ -41,4 +47,5 @@ class Api::PeopleController < ApplicationController
   def person_params
     self.params[:person].permit(:name, :tree_id, :parents_id)
   end
+ 
 end

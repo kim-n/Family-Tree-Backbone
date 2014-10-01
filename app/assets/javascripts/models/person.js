@@ -38,15 +38,48 @@ App.Models.Person = Backbone.Model.extend({
   },
   
   parents: function () {
-    var parents_record = App.Models.currentTree.spouse_list().get(this.get("parents_id"));
-    
     var parents = [];
-    parents.push(App.Models.currentTree.people().get(parents_record.get("spouse_one_id")))
-    parents.push(App.Models.currentTree.people().get(parents_record.get("spouse_two_id")))
+    if (this.get("parents_id") !== null) {
+      var parents_record = App.Models.currentTree.spouse_list().get(this.get("parents_id"));
+      
+      parents.push(App.Models.currentTree.people().get(parents_record.get("spouse_one_id")))
+      parents.push(App.Models.currentTree.people().get(parents_record.get("spouse_two_id")))
+    }
     
     return parents;
   },
   
+  children: function () {
+    var people = App.Models.currentTree.people();
+    var spouse_list = this._spouse_list();
+    var spouse_list = spouse_list["one"].concat(spouse_list["two"]);
+        
+    var children = [];
+    _.each(spouse_list, function(record) {
+      var child = people.where({"parents_id": record.id});
+      children = children.concat(child);
+    });
+    return children;
+  },
+  
+  related: function () {
+    var children = this.children();
+    var spouses = this.spouses();
+    var parents = this.parents();
+    return children.concat(spouses).concat(parents);
+  },
+  
+  unrelated: function () {
+    var people = App.Models.currentTree.people().models;
+    var related = this.related().concat(this);
+    
+    _.each(related, function (familyMember) {
+      people = _.without(people, familyMember)
+    })
+    
+    return people;
+  },
+    
   print_info: function () {
     var arr = [];
     var level = 0;

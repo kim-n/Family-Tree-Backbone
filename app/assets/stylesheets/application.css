@@ -346,3 +346,14 @@ main {
 .new-spouse-button{
   margin-top: 95px;
 }
+
+
+.add-spouse{
+  height: 100px;
+  width: 300px;
+  padding-top: 50px;
+  text-align: center;
+  background: #abc;
+  margin: auto;
+  margin-top: 200px;
+}

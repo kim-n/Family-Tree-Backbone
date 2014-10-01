@@ -9,14 +9,3 @@ App.Collections.TreePeople = Backbone.Collection.extend({
     this.tree = options.tree;
   }
 });
-
-
-App.Collections.SpouseList = Backbone.Collection.extend({
-  url: function(){
-    return this.tree.url() + "/spouseships"
-  },
-  
-  initialize: function(models, options){
-    this.tree = options.tree;
-  }
-});

@@ -1,0 +1,29 @@
+<a href="#" class="close">X</a>
+
+<form class="new-spouse-form">
+  <input type="hidden" name="spouseship[spouse_one_id" value="<%= person.id %>"></input>
+  
+  <select name="spouseship[spouse_two_id]">
+      <option value=""></option>
+    <% _.each(person.unrelated(), function (stranger) {  %>
+      <option  value="<%= stranger.id %>">
+        <%= stranger.get("name") %>
+      </option>
+    <% }); %>
+  </select>  
+  
+  OR
+  
+  <input type="hidden" name="spouseship[tree_id]" value="<%= person.get("tree_id") %>"></input>  
+  
+  
+  <input type="hidden" name="person[tree_id]" value="<%= person.get("tree_id") %>"></input>
+  <input type="hidden" name="person[spouse_one_id]" value="<%= person.id %>"></input>
+
+  <input type="text" name="person[name]" placeholder="Child Name"></input>
+  <input type="submit" value="+"></input>
+</form>
+
+
+
+
