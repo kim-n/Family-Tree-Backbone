@@ -348,7 +348,8 @@ main {
 }
 
 
-.add-spouse{
+.add-spouse,
+.add-parents{
   height: 100px;
   width: 300px;
   padding-top: 50px;

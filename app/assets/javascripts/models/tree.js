@@ -11,6 +11,28 @@ App.Models.Tree = Backbone.Model.extend({
     return this._spouse_list;
   },
   
+  spouseNames: function (skip_id) {
+    var namesArr = []
+    var tree = this;
+    _.each(this.spouse_list().models, function (spouse) {
+      var spouse_one_id = spouse.get("spouse_one_id");
+      var spouse_two_id = spouse.get("spouse_two_id")
+      
+      if ( (skip_id !== spouse_one_id) && (skip_id !== spouse_two_id) ){
+        var person_one = tree.people().get(spouse_one_id);
+        var person_two = tree.people().get(spouse_two_id);
+        namesArr.push({
+          one_name: person_one.get("name"),
+          two_name: person_two.get("name"),
+          id: spouse.get("id")
+        })
+      }
+    
+    });
+  
+    return namesArr
+  },
+  
   parse: function (payload) {
     // convert people json data to people objects client side
     // then remove people json data from payload (which is tree data)

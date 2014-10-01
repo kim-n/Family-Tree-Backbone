@@ -1,0 +1,20 @@
+<a href="#" class="close">X</a>
+
+<form class="new-parents-form">  
+  <select name="person[parents_id]">
+      <option value=""></option>
+    <% _.each(tree.spouseNames(person.id), function (parents) {  %>
+      <option  value="<%= parents.id %>">
+        <%= parents.one_name %> & <%= parents.two_name %>
+      </option>
+    <% }); %>
+  </select>  
+  
+  <input type="hidden" name="id" value="<%= person.id %>"></input>
+
+  <input type="submit" value="+"></input>
+</form>
+
+
+
+

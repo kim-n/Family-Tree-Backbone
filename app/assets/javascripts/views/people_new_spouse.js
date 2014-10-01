@@ -23,7 +23,7 @@ App.Views.PersonNewSpouse = Backbone.View.extend({
   },
   
   addSpouse: function (event) {
-    console.log("spouse")
+    console.log("Add spouse submitted")
     event.preventDefault();    
     $(".add-spouse").remove()
 
