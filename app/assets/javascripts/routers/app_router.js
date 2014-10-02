@@ -7,14 +7,20 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
   
   treesIndex: function () {
+    var background = new App.Views.Background();
+
     App.Collections.trees.fetch();
     
     var indexView = new App.Views.TreesIndex({
       collection: App.Collections.trees
     });
-        
-    $('body').html(indexView.$el);
     
+    this.populateView({
+      "body"  : background,
+      "#full-content" : indexView
+    });
+    
+
   },
   
   treesNew: function () {
@@ -27,6 +33,8 @@ App.Routers.AppRouter = Backbone.Router.extend({
     var keys = Object.keys(views_hash);
     var view;
     
+    $('.is_displayed').toggleClass('is_displayed')
+    
     this._currentViews = this._currentViews || []
     
     _.each(this._currentViews, function (view) {
@@ -36,6 +44,10 @@ App.Routers.AppRouter = Backbone.Router.extend({
     var appRouter = this;
     _.each(keys, function(key) {
       view = views_hash[key];
+      if (key !== "body"){
+        $(key).parent().addClass("is_displayed")
+      }
+      
       $(key).html(view.render().$el);
       
       appRouter._currentViews.push(view);
@@ -55,7 +67,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
     
     this.populateView({
       "body"          : background,
-      "#left-section" : showView
+      "#left-content" : showView
     });
     
   },
@@ -71,7 +83,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
     
     this.populateView({
       "body"          : background,
-      "#left-section" : showView
+      "#left-content" : showView
     });
     
     var showPersonView = new App.Views.PeopleShow({
@@ -82,7 +94,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
 
     this.currentViews = [background, showView];
 
-    background.populateView({ "#main": showPersonView});
+    background.populateView({ "#right-content": showPersonView});
     showPersonView.makePretty();
   },
   

@@ -45,7 +45,7 @@ App.Views.Background = Backbone.View.extend({
       pid: person_id
     });
 
-    this.populateView({ "#main": showPersonView});
+    this.populateView({ "#right-content": showPersonView});
     showPersonView.makePretty();
     
     // Assumes #tree/:somenumber

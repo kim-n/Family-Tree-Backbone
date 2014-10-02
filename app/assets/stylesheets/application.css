@@ -106,10 +106,13 @@ input, select {
 /************************************** 
 *************** MY CSS ****************
 **************************************/
-
 body {
+  position: absolute;
+  height: 100%;
+  width: 100%;
   font-family: sans-serif;
   font-size: 16px;
+  background: #ababab;
 }
 
 footer {
@@ -125,7 +128,7 @@ header {
   font-family: verdana;
   background: lightgreen;
   padding: 10px 10px 10px 10px;
-/*  height: 50px;*/
+  height: 50px;
 }
 
 header a {
@@ -157,12 +160,134 @@ h1 {
   color: orange;
 }
 
-
-.main-left{
-  float:left;
-  width: 15%;
-  height: 100%;
+#divider {
+  height: 30px;
+  width: 100%;
+  background-color: black;
 }
+
+#page-info {
+  height: 20px;
+  background: pink;
+  padding-left: 20px;
+}
+
+#page-info form, #page-info form div {
+  display: inline;
+}
+
+
+body > div{
+  position: relative;
+  height:100%; /* force the BODY element to match the height of the HTML element */
+}
+
+#content {
+  width: 100%;
+  height: 80%;
+}
+
+#full-page {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#full-page #full-content {
+  text-align: center;
+  margin: auto;
+  width: 80%;
+  height: 100%;
+  background: red;
+}
+
+#split-page {
+  
+}
+
+#left-content, #right-content {
+  float: left;
+  padding: 20px 0px 0px 20px;
+  height: 90%;
+}
+
+#split-page  #left-content{
+  min-height: 530px;
+  width: 18%;
+  background: lightblue;
+  overflow: scroll; 
+}
+
+#split-page #right-content{
+  min-height: 500px;
+  width: 78%;
+  left: 20%;
+  padding-top: 40px;
+  overflow: scroll;
+}
+
+
+footer {
+  display: none;
+}
+
+
+/* tree & people show page */
+
+
+
+/*form, input[type=submit]{
+  display: inline;
+}*/
+
+
+
+
+#flash-errors, #flash-notices {
+  text-align: center;
+  width: 50%;
+  position: absolute;
+  left: 25%;
+  top: 70px;
+  background: yellow;
+}
+
+
+
+.session-form {
+  text-align: center;
+  padding-top
+}
+
+
+
+
+
+
+/*#actions {
+  background: lightgrey;
+}
+
+#actions > span {
+  display: none;
+}
+
+#actions > a {
+  padding: 0px 10px 0px 10px;
+}
+*/
+
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
 
 .people-container {
   float:left;
@@ -230,103 +355,6 @@ div.dot {
   border: 2px solid green;
   border-radius: 25px;
 }
-/* tree & people show page */
-
-#page-info{
-  height: 20px;
-  background: pink;
-  padding-left: 20px;
-}
-
-#page-info form, #page-info form div {
-  display: inline;
-}
-
-/*form, input[type=submit]{
-  display: inline;
-}*/
-
-#left-section, #main {
-  position: absolute;
-  top: 110px;
-  bottom: 20px;
-  float: left;
-  padding: 20px 0px 0px 20px;
-  z-index: -3;
-}
-
-#left-section {
-  min-height: 530px;
-  width: 18%;
-  background: lightblue;
-  overflow: scroll;
-}
-
-#main {
-  min-height: 500px;
-  width: 78%;
-  left: 20%;
-  padding-top: 40px;
-  overflow: scroll;
-  z-index: -3; /* people container has index-2, without this, can't click on people's names*/
-}
-
-#flash-errors, #flash-notices {
-  text-align: center;
-  width: 50%;
-  position: absolute;
-  left: 25%;
-  top: 70px;
-  background: yellow;
-}
-
-
-
-.session-form {
-  text-align: center;
-  padding-top
-}
-
-
-main {
-  background: lightblue;
-  text-align: center;
-  width: 1000px;
-  margin: auto;
-  padding: 40px 0px 40px 0px;
-}
-
-#divider {
-  height: 30px;
-  width: 100%;
-  background-color: black;
-}
-
-#actions {
-  background: lightgrey;
-}
-
-#actions > span {
-  display: none;
-}
-
-#actions > a {
-  padding: 0px 10px 0px 10px;
-}
-
-
-
-::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
-
-
 
 .add-child {
   width: 180px;
@@ -357,4 +385,14 @@ main {
   background: #abc;
   margin: auto;
   margin-top: 200px;
+}
+
+
+
+.display-off {
+  display: none;
+}
+
+.is_displayed {
+  display: inline;
 }

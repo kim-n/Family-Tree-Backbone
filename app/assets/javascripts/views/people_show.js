@@ -477,6 +477,8 @@ App.Views.PeopleShow = Backbone.View.extend({
 
     var margin = (window_size)/ ($people.length) +  (space_btw_people * $people.length-1)// max horizontal space allowed per person
   
+    console.log("MARGIN", window_size, level_num, margin)
+  
     for(var i = 0; i < $people.length; i++){
       var $person = $($people[i]);
       $person.width(margin-space_btw_people); // set width of person object to be max allowed horizonal space
@@ -490,7 +492,7 @@ App.Views.PeopleShow = Backbone.View.extend({
 
   printPeople: function (window_size, max_level, space_btw_people, space_btw_level){
     var level = 0;  // initial level
-  
+    
     while(level <= max_level){
       this.printByLevel(window_size, level, space_btw_people, space_btw_level);
       level++;
@@ -512,7 +514,7 @@ App.Views.PeopleShow = Backbone.View.extend({
       level++;
       people_on_level = $('.Level-' + level).length;
     }
-    return [level, max_people]
+    return [level-1, max_people]
   },
   
   makePretty: function () {
@@ -528,6 +530,7 @@ App.Views.PeopleShow = Backbone.View.extend({
     var PERSON_OBJECT_WIDTH = 75;
 
     var WINDOW_SIZE = (MIN_PERSON_WIDTH + SPACE_BTW_PEOPLE) * (maxPeople + 1);
+    console.log("WINDOW SIZE", WINDOW_SIZE, maxLevel)
     var $CONTAINER = $('.people-container') // hard coded in draw-line
     var $FIRST_PERSON = $($('.child')[0]);
 
