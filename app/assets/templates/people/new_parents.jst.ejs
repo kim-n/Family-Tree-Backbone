@@ -2,11 +2,17 @@
 
 <form class="new-parents-form">  
   <select name="person[parents_id]">
-      <option value=""></option>
+      <option value="">NONE</option>
     <% _.each(tree.spouseNames(person.id), function (parents) {  %>
-      <option  value="<%= parents.id %>">
-        <%= parents.one_name %> & <%= parents.two_name %>
-      </option>
+      <% if (person.get("parents_id") !== parents.id){ %>
+        <option  value="<%= parents.id %>"  >
+          <%= parents.one_name %> & <%= parents.two_name %>
+        </option>
+      <% } else { %>
+        <option  value="<%= parents.id %>" selected>
+          <%= parents.one_name %> & <%= parents.two_name %>
+        </option>
+      <% }  %>
     <% }); %>
   </select>  
   

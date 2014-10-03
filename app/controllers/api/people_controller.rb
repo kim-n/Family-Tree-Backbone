@@ -36,11 +36,15 @@ class Api::PeopleController < ApplicationController
   
   def destroy
     @person = Person.find(params[:id])
-    if @person.destroy
-      render :json => @person
-    else
-      render :json => @person.errors, :status => :unprocessable_entity
+
+    if params[:delete_children]
+      @person.children.each do |child|
+        child.destroy
+      end
     end
+    
+    @person.destroy
+    render :json => @person
   end
   
   protected

@@ -25,7 +25,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
   
   treesNew: function () {
     var newView = new App.Views.TreesNew();
-    $("body").append(newView.render().$el)
+    $("#full-content").html(newView.render().$el)
   },
   
   // Expect hash with { el_to_replace_html: view}

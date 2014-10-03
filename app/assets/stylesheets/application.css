@@ -207,19 +207,22 @@ body > div{
 
 #left-content, #right-content {
   float: left;
-  padding: 20px 0px 0px 20px;
   height: 90%;
 }
 
 #split-page  #left-content{
+  padding: 20px 0px 0px 40px;
   min-height: 530px;
+  min-width: 130px;
   width: 18%;
   background: lightblue;
   overflow: scroll; 
 }
 
 #split-page #right-content{
+  margin-left: 25px;
   min-height: 500px;
+  min-width: 400px;
   width: 78%;
   left: 20%;
   padding-top: 40px;
@@ -296,7 +299,6 @@ footer {
   left: 0px;
   width: 85%;
   height: 100%;
-  z-index: -2;
 }
 
 .people-container .person{  
@@ -366,9 +368,15 @@ div.dot {
 
 .add-child,
 .new-spouse-button,
-.new-parents-button{
+.new-parents-button,
+.delete-person-button{
  position: absolute; 
  z-index: 3;
+}
+
+.delete-person-button{
+  margin-top: 45px;
+  margin-left: -40px;
 }
 
 .new-spouse-button{
@@ -377,14 +385,16 @@ div.dot {
 
 
 .add-spouse,
-.add-parents{
+.add-parents,
+.delete-self{
+  position :absolute;
+  top: 40%;
+  left: 40%;
   height: 100px;
   width: 300px;
-  padding-top: 50px;
   text-align: center;
-  background: #abc;
-  margin: auto;
-  margin-top: 200px;
+  background: blue;
+  z-index: 4;
 }
 
 
