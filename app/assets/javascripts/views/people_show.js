@@ -6,9 +6,14 @@ App.Views.PeopleShow = Backbone.View.extend({
   
   events: {
     "click .dot": "createChild",
+    "click .spouse-line": "createChild",
     "click .person-object": "showOptions",
     "mouseover .person-object": "highlight",
-    "mouseleave .person-object": "unhighlight"
+    "mouseleave .person-object": "unhighlight",
+    "mouseover .spouse-line": "enlargen",
+    "mouseleave .spouse-line": "unenlargen",
+    "mouseover .dot": "enlargen",
+    "mouseleave .dot": "unenlargen"
   },
   
   initialize: function (options){
@@ -85,8 +90,11 @@ App.Views.PeopleShow = Backbone.View.extend({
       tree_id: App.Models.currentTree.id
     });
   
-    $('.people-container').append(newChildView.render().$el);
-    $(".add-child").css($(event.currentTarget).position())
+    var positions = {"left": event.clientX - 40, "top" : event.clientY - 10};
+    console.log($(event.currentTarget).position(), event.clientX, event.clientY, positions)
+    
+    $('body').append(newChildView.render().$el);
+    $(".add-child").css(positions)
   
   },
   
@@ -121,19 +129,38 @@ App.Views.PeopleShow = Backbone.View.extend({
         $child.children('.person-object').css({"border" : "2px solid red"})
     
       }
-      $('.parent-line.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 0});
-      $('.child-line.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 0});
-      $('.spouse-line.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 0});
-      $('.horizontal-line.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 0});
-      $('.dot.'+ person_id +'.'+ spouse_id).css({"background" : "red", "z-index" : 3});
+      $('.parent-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
+      $('.child-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
+      $('.spouse-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
+      $('.horizontal-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
+      $('.dot.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
     }
     
   },
   
   unhighlight: function (event) {
     $('.person-object').css({"border": "2px solid transparent"});
-    $('.line').css({"background": "green", "z-index" : -1});
-    $('.dot').css({"background" : "green", "z-index" : 3});   
+    $('.line').css({"background": "green"});
+    $('.dot').css({"background" : "green"});   
+  },
+  
+  
+  enlargen: function (event) {
+    $line = $(event.currentTarget);
+    if ($line.hasClass("dot")){
+      $line.css({"height" : "7px", "width" : "7px", "background" : "red"})
+    } else if ($line.hasClass("spouse-line")){
+      $line.css({"height" : "4px", "background" : "red", "margin-top" : "-2px"})
+    }
+  },
+  
+  unenlargen: function (event) {
+    $line = $(event.currentTarget);
+    if ($line.hasClass("dot")){
+      $line.css({"height" : "4px", "width" : "4px", "background" : "green"})
+    } else if ($line.hasClass("spouse-line")){
+      $line.css({"height" : "1px", "background" : "green", "margin-top" : "0px"})
+    }
   },
   
   // Utility: drawing lines
