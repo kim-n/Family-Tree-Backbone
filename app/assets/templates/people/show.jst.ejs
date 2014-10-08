@@ -12,6 +12,7 @@
       <% } else { %>
         <div class="person-object <%= info.person.id %>">
       <% } %>
+        <img class="person-avatar" src="<%= info.person.escape("avatar") %>">
         <a class="show-person" data-pid="<%= info.person.id %>" href="#"><%= info.person.escape("name") %></a>
       </div>
     </div>

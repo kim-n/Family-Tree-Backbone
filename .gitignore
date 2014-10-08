@@ -14,3 +14,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore all DS_Store
+.DS_Store
+
+# Ignore secret file
+config/secrets.yml

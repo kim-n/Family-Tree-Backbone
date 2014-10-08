@@ -11,14 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924043418) do
+ActiveRecord::Schema.define(version: 20141008021359) do
 
   create_table "people", force: true do |t|
-    t.string   "name",       default: "Unknown", null: false
+    t.string   "name",                default: "Unknown", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tree_id"
     t.integer  "parents_id"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "spouseships", force: true do |t|

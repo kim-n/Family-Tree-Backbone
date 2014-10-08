@@ -1,4 +1,4 @@
-json.(person, :id, :tree_id, :name, :parents_id, :created_at, :updated_at)
+json.(person, :id, :tree_id, :name, :parents_id, :avatar, :created_at, :updated_at)
 
 
 spouseship ||= nil
