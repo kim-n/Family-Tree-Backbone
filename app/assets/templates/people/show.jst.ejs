@@ -2,9 +2,16 @@
 
 <% if( person !== undefined){ %>
   <% _.each(person.print_info(), function (info) {  %>
+    <% if (info.person.escape("parents_id")){ %>
+      <div class="dot parent-dot <%= info.person.id %>"></div>
+    <% } %>
 
     <div id="<%= info.person.id %>" class="<%= info.classes %>">
-      <div class="person-object <%= info.person.id %>">
+      <% if (info.person.id === person.id){ %>
+        <div class="current-person person-object <%= info.person.id %>">
+      <% } else { %>
+        <div class="person-object <%= info.person.id %>">
+      <% } %>
         <a class="show-person" data-pid="<%= info.person.id %>" href="#"><%= info.person.escape("name") %></a>
       </div>
     </div>

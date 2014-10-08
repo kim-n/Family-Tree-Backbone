@@ -1,5 +1,7 @@
 App.Views.PersonDeleteSelf = Backbone.View.extend({
   template: JST["people/delete_self"],
+  
+  className: "delete-self floating-subview",
 
   events: {
     "submit form.delete-self-form": "deleteSelf",

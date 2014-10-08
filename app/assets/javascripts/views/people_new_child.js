@@ -1,19 +1,21 @@
 App.Views.PersonNewChild = Backbone.View.extend({
   template: JST["people/new_child"],
   
+  className: "add-child floating-subview",
+  
   initialize: function(options){
     this.parents_id = options.parents_id;
-    this.tree_id = options.tree_id;
   },
   
   events: {
-    "submit form.new-child-form": "submit"
+    "submit form.new-child-form": "submit",
+    "click a.close": "close"
   },
   
   render: function () {
     var renderedContent = this.template({
       parents_id: this.parents_id,
-      tree_id: this.tree_id
+      tree_id: App.Models.currentTree.id
     });
     
     this.$el.append(renderedContent);
@@ -34,5 +36,10 @@ App.Views.PersonNewChild = Backbone.View.extend({
         App.Models.currentTree.fetch();
      }
     });
+  },
+  
+  close: function (event) {
+    event.preventDefault();
+    this.remove();
   }
 })

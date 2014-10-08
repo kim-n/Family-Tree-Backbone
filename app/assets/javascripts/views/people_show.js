@@ -5,15 +5,19 @@ App.Views.PeopleShow = Backbone.View.extend({
   template: JST["people/show"],
   
   events: {
-    "click .dot": "createChild",
+    "click .child-dot": "createChild",
     "click .spouse-line": "createChild",
+    
     "click .person-object": "showOptions",
+    
     "mouseover .person-object": "highlight",
     "mouseleave .person-object": "unhighlight",
+    
     "mouseover .spouse-line": "enlargen",
     "mouseleave .spouse-line": "unenlargen",
-    "mouseover .dot": "enlargen",
-    "mouseleave .dot": "unenlargen"
+    
+    "mouseover .child-dot": "enlargen",
+    "mouseleave .child-dot": "unenlargen"
   },
   
   initialize: function (options){
@@ -42,17 +46,19 @@ App.Views.PeopleShow = Backbone.View.extend({
   },
   
   
+  closeView: function (event) {
+    event.preventDefault();
+    this.remove();
+  },
+  
   showOptions: function (event) {
-    console.log("options clicked")
-    var $personObject = $(event.currentTarget)
-    $(".new-parents-button").remove();
-    $(".new-spouse-button").remove();
+    console.log("options clicked")    
     
+    var $personObject = $(event.currentTarget)
     var person_id = $personObject.attr("class").split(" ").pop();
     
-    $(".button").remove()
+    $(".floating-subview").remove();  // Remove old subviews above person show view
     var newOptionsView = new App.Views.PersonShowOptions({
-      className: "button",
       person_id: person_id
     })
     
@@ -62,47 +68,38 @@ App.Views.PeopleShow = Backbone.View.extend({
       top: $personObject.parent().position().top - 15,
       left: $personObject.parent().position().left + offset
     }
-    $('.people-container').append(newOptionsView.render().$el);
-    $(".new-spouse-button").css(newPositions);
-    $(".new-parents-button").css(newPositions);
-    $(".delete-person-button").css(newPositions)
-    console.log($(event.currentTarget).parent().position())
     
+    $('.people-container').append(newOptionsView.render().$el);
+    $(".person-options-icons").css(newPositions);    
   },
   
   
   createChild: function(event){
     console.log("create child clicked")
+    
     var classes = $(event.currentTarget).attr("class").split(" ");
-
     var parent_one_id = parseInt(classes.pop());
     var parent_two_id = parseInt(classes.pop());
   
-    var parents = App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_one_id, "spouse_two_id":parent_two_id}).concat(
+    var parents_spouse_record = App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_one_id, "spouse_two_id":parent_two_id}).concat(
       App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_two_id, "spouse_two_id":parent_one_id})
     );
     
-    $(".add-child").remove()
-    $(".button").remove()
+    $(".floating-subview").remove();  // Remove old subviews above person show view
     var newChildView = new App.Views.PersonNewChild({
-      className: "add-child button",
-      parents_id: parents[0].id,
-      tree_id: App.Models.currentTree.id
+      parents_id: parents_spouse_record[0].id
     });
-  
-    var positions = {"left": event.clientX - 40, "top" : event.clientY - 10};
-    console.log($(event.currentTarget).position(), event.clientX, event.clientY, positions)
-    
+        
     $('body').append(newChildView.render().$el);
-    $(".add-child").css(positions)
-  
+    $(".add-child").css({
+      top: event.pageY - 10,
+      left: event.pageX - 10
+    });
   },
   
   
   highlight: function (event) {  
-
     var $person = $(event.currentTarget).parent();
-    
     var person_id = $person.attr("id");
     
     $person.children('.person-object').css({"border" : "2px solid red"})
@@ -133,21 +130,20 @@ App.Views.PeopleShow = Backbone.View.extend({
       $('.child-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
       $('.spouse-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
       $('.horizontal-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
-      $('.dot.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
+      $('.child-dot.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
     }
-    
   },
   
   unhighlight: function (event) {
     $('.person-object').css({"border": "2px solid transparent"});
     $('.line').css({"background": "green"});
-    $('.dot').css({"background" : "green"});   
+    $('.child-dot').css({"background" : "green"});   
   },
   
   
   enlargen: function (event) {
     $line = $(event.currentTarget);
-    if ($line.hasClass("dot")){
+    if ($line.hasClass("child-dot")){
       $line.css({"height" : "7px", "width" : "7px", "background" : "red"})
     } else if ($line.hasClass("spouse-line")){
       $line.css({"height" : "4px", "background" : "red", "margin-top" : "-2px"})
@@ -156,7 +152,7 @@ App.Views.PeopleShow = Backbone.View.extend({
   
   unenlargen: function (event) {
     $line = $(event.currentTarget);
-    if ($line.hasClass("dot")){
+    if ($line.hasClass("child-dot")){
       $line.css({"height" : "4px", "width" : "4px", "background" : "green"})
     } else if ($line.hasClass("spouse-line")){
       $line.css({"height" : "1px", "background" : "green", "margin-top" : "0px"})
@@ -410,12 +406,12 @@ App.Views.PeopleShow = Backbone.View.extend({
     this.drawLine({
       "left": line_left-4,
       "top": line_top-3
-    }, "dot " + classes);
+    }, "dot child-dot " + classes);
   
     this.drawLine({
       "left": line_left + horizontal_distance-5,
       "top": line_top-4
-    }, "dot " + classes);
+    }, "dot child-dot " + classes);
   },
 
 
@@ -503,6 +499,23 @@ App.Views.PeopleShow = Backbone.View.extend({
     return [level-1, max_people]
   },
   
+  align_parent_dots: function () {
+    var $parent_dots = $('.parent-dot')
+    
+    _.each($parent_dots, function (parent_dot){
+      var $dot = $(parent_dot);
+      var person_id = parseInt($dot.attr("class").split(" ").pop());
+      var $person = $('#' + person_id);
+      // $person = $person.children('.person-object')
+      var newPosition = $person.position();
+      newPosition.left = newPosition.left + ($person.width()/2)
+      
+      $dot.css(newPosition)
+      console.log(newPosition)
+    });
+  },
+  
+  
   makePretty: function () {
     var max = this.maxes();
     var maxPeople = max[1];
@@ -527,6 +540,7 @@ App.Views.PeopleShow = Backbone.View.extend({
 
    // Prints people, then lines
    this.display($FIRST_PERSON, maxLevel, WINDOW_SIZE, SPACE_BTW_LEVEL, SPACE_BTW_PEOPLE, PERSON_OBJECT_WIDTH);
+   this.align_parent_dots();
   }
   
 });

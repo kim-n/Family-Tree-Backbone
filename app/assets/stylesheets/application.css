@@ -331,15 +331,21 @@ footer {
   height: 75px;
   text-align: center;
   font-size: 12px;
-  z-index: 1;
+  z-index: 2;
 }
 
-.people-container img {
+.people-container .current-person {
+  background: lightgreen;
+}
+
+.people-container img.photo {
   margin: auto;
   width: 50px;
   height: 50px;
   display: block;
 }
+
+
 
 .child {
   text-align: center;
@@ -366,6 +372,7 @@ div.line{
 
 div.spouse-line, div.horizontal-line{
   width: 40px;
+  z-index: 1;
 }
 
 div.parent-line, div.child-line {
@@ -378,7 +385,7 @@ div.dot {
   background: green;
   border: 2px solid green;
   border-radius: 25px;
-  z-index: 2;
+  z-index: 3;
 }
 
 
@@ -397,41 +404,70 @@ div.dot {
   z-index: 3;
 }
 
-
 .add-child,
-.new-spouse-button,
-.new-parents-button,
-.delete-person-button{
+.person-options-icons {
  position: absolute; 
  z-index: 3;
 }
 
-.delete-person-button{
-  margin-top: 45px;
-  margin-left: -40px;
+.person-options-icons {
+  margin-top: 100px;
 }
 
-.new-spouse-button{
-  margin-top: 95px;
+.person-options-icons.new-spouse-icon {
+  margin-left: 60px;
 }
 
+.person-options-icons.new-parents-icon {
+  margin-left: 20px;
+}
+
+.person-options-icons.delete-person-icon{
+  margin-left: -20px;
+}
 
 .add-spouse,
 .add-parents,
-.delete-self{
+.delete-self,
+.add-child {
   position :absolute;
-  top: 40%;
-  left: 40%;
-  height: 100px;
-  width: 300px;
+  height: auto;
+  width: auto;
   text-align: center;
   background: blue;
   z-index: 3;
 }
 
+div.parent-dot {
+  position: absolute;
+  margin-top: -4px;
+  margin-left: -2px;
+  z-index: 1;
+}
+
+.icon-link {
+  background: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 25px;
+}
+
+.new-spouse-form,
+.new-parents-form,
+.delete-self-form,
+.new-child-form{
+  display: inline;
+}
 
 
+input[type="submit"],
+input[type="checkbox"] {
+  display: inline; 
+  vertical-align: center;
+  text-align: left;
+}
 
-
-
-
+.close {
+  background: red;
+  padding:  3px 5px 3px 5px;
+}

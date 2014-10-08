@@ -1,5 +1,7 @@
 App.Views.PersonNewParents = Backbone.View.extend({
   template: JST["people/new_parents"],
+  
+  className: "add-parents floating-subview",
 
   events: {
     "submit form.new-parents-form": "addParents",

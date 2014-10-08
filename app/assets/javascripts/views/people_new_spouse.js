@@ -1,6 +1,8 @@
 App.Views.PersonNewSpouse = Backbone.View.extend({
   template: JST["people/new_spouse"],
   
+  className: "add-spouse floating-subview",
+  
   events: {
     "submit form.new-spouse-form": "addSpouse",
     "click a.close": "closeView"
@@ -17,9 +19,9 @@ App.Views.PersonNewSpouse = Backbone.View.extend({
     return this;
   },
   
-  closeView: function () {
+  closeView: function (event) {
     event.preventDefault();
-    this.remove()
+    this.remove();
   },
   
   addSpouse: function (event) {
