@@ -56,10 +56,12 @@ App.Views.PeopleShow = Backbone.View.extend({
     
     var $personObject = $(event.currentTarget)
     var person_id = $personObject.attr("class").split(" ").pop();
-    
+        
+    console.log("local id", $personObject.attr("id"))
     $(".floating-subview").remove();  // Remove old subviews above person show view
     var newOptionsView = new App.Views.PersonShowOptions({
-      person_id: person_id
+      person_id: person_id,
+      person_local_id: $personObject.attr("id")
     })
     
     var offset = ($personObject.parent().width() - $personObject.width() ) /2
@@ -100,7 +102,7 @@ App.Views.PeopleShow = Backbone.View.extend({
   
   highlight: function (event) {  
     var $person = $(event.currentTarget).parent();
-    var person_id = $person.attr("id");
+    var person_id = $person.data("id");
     
     $person.children('.person-object').css({"border" : "2px solid red"})
       
@@ -118,7 +120,7 @@ App.Views.PeopleShow = Backbone.View.extend({
     for(var i = 0; i < list_spouses.length; i++){
       var $spouse = $(list_spouses[i]);
       $spouse.children('.person-object').css({"border" : "2px solid red"})
-      var spouse_id = $spouse.attr("id");
+      var spouse_id = $spouse.data("id");
       var list_children = $(".child." + spouse_id + "." + person_id);
 
       for(var j = 0; j < list_children.length; j++){
@@ -374,7 +376,7 @@ App.Views.PeopleShow = Backbone.View.extend({
   printLineToChildren: function ($person, spouse_id, modifier, space_btw_people){
     var start_pos = $person.position();
   
-    var classes = "parent-line " + $person.attr("id")+ ' ' + spouse_id
+    var classes = "parent-line " + $person.data("id")+ ' ' + spouse_id
     var new_left = start_pos.left - (space_btw_people/2); // subtract half of SPACE_btw_PEOPLE to center line between people
     var new_top = start_pos.top  + modifier * 78 + 2;
 
@@ -389,7 +391,7 @@ App.Views.PeopleShow = Backbone.View.extend({
   printLineToSpouse: function ($person, $spouse, person_object_width, modifier) {
     var start_pos = $person.position();
     var end_pos = $spouse.position();
-    var classes = $person.attr("id") + " " + $spouse.attr("id");
+    var classes = $person.data("id") + " " + $spouse.data("id");
   
     var horizontal_distance = Math.abs($person.position().left - $spouse.position().left) - person_object_width;
   
@@ -417,7 +419,7 @@ App.Views.PeopleShow = Backbone.View.extend({
 
   // Delegates printing of all lines
   printLines: function ($person, person_object_width, space_btw_people){
-    var person_id = $person.attr("id");
+    var person_id = $person.data("id");
     var list_spouses = $(".spouse." + person_id)
     for(var i = 0; i < list_spouses.length; i++){
       var $spouse = $(list_spouses[i]);
@@ -425,7 +427,7 @@ App.Views.PeopleShow = Backbone.View.extend({
       // print horizontal line between spouses
       this.printLineToSpouse($person, $spouse, person_object_width, (i+1)/(list_spouses.length+1))
     
-      var spouse_id = $spouse.attr("id");
+      var spouse_id = $spouse.data("id");
       var list_children = $(".child." + spouse_id + "." + person_id);
     
       if(list_children.length > 0){
@@ -458,9 +460,7 @@ App.Views.PeopleShow = Backbone.View.extend({
     var $people = $(".Level-" + level_num); // all people at level level_num
 
     var margin = (window_size)/ ($people.length) +  (space_btw_people * $people.length-1)// max horizontal space allowed per person
-  
-    console.log("MARGIN", window_size, level_num, margin)
-  
+    
     for(var i = 0; i < $people.length; i++){
       var $person = $($people[i]);
       $person.width(margin-space_btw_people); // set width of person object to be max allowed horizonal space
@@ -505,8 +505,8 @@ App.Views.PeopleShow = Backbone.View.extend({
     _.each($parent_dots, function (parent_dot){
       var $dot = $(parent_dot);
       var person_id = parseInt($dot.attr("class").split(" ").pop());
-      var $person = $('#' + person_id);
-      // $person = $person.children('.person-object')
+      var $person = $('[data-id="' + person_id +'"]');
+
       var newPosition = $person.position();
       newPosition.left = newPosition.left + ($person.width()/2)
       

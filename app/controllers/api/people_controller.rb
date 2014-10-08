@@ -27,7 +27,13 @@ class Api::PeopleController < ApplicationController
   
   def update
     @person = Person.find(params[:id])
-    if @person.update_attributes(self.person_params)
+    
+    all_params = self.person_params
+    
+    all_params.delete("name") if all_params["name"].blank?
+    all_params.delete("avatar") if all_params["avatar"] == "undefined"
+    
+    if @person.update_attributes(all_params)
       render :json => @person
     else
       render :json => @person.errors, :status => :unprocessable_entity
@@ -49,7 +55,7 @@ class Api::PeopleController < ApplicationController
   
   protected
   def person_params
-    self.params[:person].permit(:name, :tree_id, :parents_id)
+    self.params[:person].permit(:name, :tree_id, :parents_id, :avatar)
   end
  
 end

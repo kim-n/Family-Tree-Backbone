@@ -1,0 +1,12 @@
+<form class="edit-self-form" enctype='multipart/form-data'>
+  <input type="hidden" name="person[id]" value="<%= person.id %>"></input>
+  <input id="person-name" type="text" name="person[name]" default="<%= person.escape("name") %>" placeholder="<%= person.escape("name") %>"></input>
+  <input id="person-avatar" type="file" name="person[avatar]" placeholder="<%= person.escape("avatar") %>"></input>
+  <input type="submit" value="Save!"></input>
+  
+</form>
+
+
+
+
+
