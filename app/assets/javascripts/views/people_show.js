@@ -113,10 +113,9 @@ App.Views.PeopleShow = Backbone.View.extend({
     }
     else if($person.hasClass('spouse')){
       var lastClass = $person.attr('class').split(' ').pop();
-      var $spouse = $('#'+lastClass);
-      list_spouses = [$spouse];
+      list_spouses = $('[data-id='+ lastClass +']');
     }
-  
+      
     for(var i = 0; i < list_spouses.length; i++){
       var $spouse = $(list_spouses[i]);
       $spouse.children('.person-object').css({"border" : "2px solid red"})
@@ -128,17 +127,17 @@ App.Views.PeopleShow = Backbone.View.extend({
         $child.children('.person-object').css({"border" : "2px solid red"})
     
       }
-      $('.parent-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
-      $('.child-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
-      $('.spouse-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
-      $('.horizontal-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
+      $('.parent-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red", "border-color" : "red"  } );
+      $('.child-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red", "border-color" : "red"  } );
+      $('.spouse-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red", "border-color" : "red" } );
+      $('.horizontal-line.'+ person_id +'.'+ spouse_id).css( { "background" : "red", "border-color" : "red"  } );
       $('.child-dot.'+ person_id +'.'+ spouse_id).css( { "background" : "red" } );
     }
   },
   
   unhighlight: function (event) {
     $('.person-object').css({"border": "2px solid transparent"});
-    $('.line').css({"background": "green"});
+    $('.line').css({"background": "green", "border-color" : "green" });
     $('.child-dot').css({"background" : "green"});   
   },
   
