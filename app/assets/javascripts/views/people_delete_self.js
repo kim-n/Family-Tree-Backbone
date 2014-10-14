@@ -38,10 +38,11 @@ App.Views.PersonDeleteSelf = Backbone.View.extend({
       data: { delete_children: params["delete_children"] },
       processData: true,
       success: function () {
+        $("#notice").show().html( person.escape("name") + " deleted!" ).fadeOut(3000);
         App.Models.currentTree.fetch();
       },
       error: function () {
-        console.log("Failure delete person")
+        $("#notice").show().html("Failed to delete " + person.escape("name") ).fadeOut(3000)
       }
     })
   }

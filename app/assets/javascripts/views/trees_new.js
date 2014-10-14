@@ -22,9 +22,13 @@ App.Views.TreesNew = Backbone.View.extend({
     
     newTree.save({}, {
       success: function () { 
+        $("#notice").show().html( "Tree added" ).fadeOut(3000)
         App.Collections.trees.add(newTree);
-      Backbone.history.navigate("/", { trigger: true });
-     }
+        Backbone.history.navigate("/", { trigger: true });
+      },
+      error: function () {
+        $("#notice").show().html( "Failed to add tree" ).fadeOut(3000)
+      }
     });
   }
 });

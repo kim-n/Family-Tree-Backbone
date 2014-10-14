@@ -34,10 +34,14 @@ App.Views.PersonNewSpouse = Backbone.View.extend({
     if (params["spouseship"]["spouse_two_id"]) {
       var newSpouseShip = new App.Models.Spouseship(params["spouseship"])
       newSpouseShip.save({}, {
-        success: function () {
+        success: function () { 
+          $("#notice").show().html("Spouse added!").fadeOut(3000)
           App.Models.currentTree.spouse_list().add(newSpouseShip);
           App.Models.currentTree.fetch();
-       }
+        },
+        error: function () {
+          $("#notice").show().html( "Failed to add spouse" ).fadeOut(3000)
+        }
      });
       
     } else {
@@ -45,9 +49,13 @@ App.Views.PersonNewSpouse = Backbone.View.extend({
       var newPerson = new App.Models.Person(params["person"]);
       newPerson.save({}, {
         success: function () {
+          $("#notice").show().html("Spouse created and added!").fadeOut(3000)
           App.Models.currentTree.people().add(newPerson);
           App.Models.currentTree.fetch();
-       }
+        },
+        error: function () {
+          $("#notice").show().html( "Failed to create spouse" ).fadeOut(3000)
+        }
      });
    }
  }

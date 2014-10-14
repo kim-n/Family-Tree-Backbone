@@ -42,11 +42,14 @@ App.Views.PersonEditSelf = Backbone.View.extend({
       processData: false,
       contentType: false,
       success: function () {
-        $(".edit-self").remove() 
+        $(".edit-self").remove()
+        $("#notice").show().html( person.escape("name") + " edited!" ).fadeOut(3000);
+         
         App.Models.currentTree.fetch();
       },
       error: function () {
-        $(".edit-self").html("ERROR!") 
+        $(".edit-self").remove();
+        $("#notice").show().html( "Failed to edit " + person.escape("name") ).fadeOut(3000);
       }
     });
 

@@ -29,12 +29,18 @@ App.Views.PersonNewChild = Backbone.View.extend({
     var params = $(event.currentTarget).serializeJSON();
     var newPerson = new App.Models.Person(params["person"]);
     
+    $(".add-child").remove();
+    
     newPerson.save({}, {
       success: function () {
-        $(".add-child").remove() 
+        $("#notice").show().html( "Child added!" ).fadeOut(3000)
+         
         App.Models.currentTree.people().add(newPerson);
         App.Models.currentTree.fetch();
-     }
+      },
+      error: function () {
+        $("#notice").show().html( "Failed to add child" ).fadeOut(3000)
+      }
     });
   },
   

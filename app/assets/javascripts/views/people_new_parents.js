@@ -35,10 +35,11 @@ App.Views.PersonNewParents = Backbone.View.extend({
     
     person.save({}, {
       success: function () {
+        $("#notice").show().html( "Parents added" ).fadeOut(3000)
         App.Models.currentTree.fetch();
       },
       error: function () {
-        console.log("Failure update parents_id")
+        $("#notice").show().html( "Failed to update parents" ).fadeOut(3000)
       }
     })
   }

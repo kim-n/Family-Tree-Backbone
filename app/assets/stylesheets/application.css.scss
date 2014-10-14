@@ -145,6 +145,8 @@ h1 {
 }
 
 #divider {
+  text-align: center;
+  font-size: 24px;
   height: 30px;
   width: 100%;
   background-color: $divider-color;
@@ -469,5 +471,7 @@ input[type="checkbox"] {
 
 
 #notice {
+  text-align: center;
+  display: none;
   color: white;
 }
