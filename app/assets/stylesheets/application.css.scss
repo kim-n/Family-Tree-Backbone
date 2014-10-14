@@ -167,6 +167,8 @@ body > div{
   height:100%; /* force the BODY element to match the height of the HTML element */
 }
 
+
+
 #content {
   width: 100%;
   height: 80%;
@@ -212,13 +214,13 @@ body > div{
   overflow: scroll;
 }
 
-.display-off {
-  display: none;
-}
+//.display-off {
+//  display: none;
+//}
 
-.is_displayed {
-  display: inline;
-}
+//.is_displayed {
+//  display: inline;
+//}
 
 #flash-errors, #flash-notices {
   text-align: center;

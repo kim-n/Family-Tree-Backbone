@@ -15,7 +15,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
       collection: App.Collections.trees
     });
     
-    this.populateView({
+    this._populateView("full", {
       "body"  : background,
       "#full-content" : indexView
     });
@@ -25,34 +25,12 @@ App.Routers.AppRouter = Backbone.Router.extend({
   
   treesNew: function () {
     var newView = new App.Views.TreesNew();
-    $("#full-content").html(newView.render().$el)
+    this._populateView("full", {
+      "body"  : background,
+      "#full-content" : newView
+    });
   },
   
-  // Expect hash with { el_to_replace_html: view}
-  populateView: function (views_hash) {
-    var keys = Object.keys(views_hash);
-    var view;
-    
-    $('.is_displayed').toggleClass('is_displayed')
-    
-    this._currentViews = this._currentViews || []
-    
-    _.each(this._currentViews, function (view) {
-      view.remove();
-    });
-    
-    var appRouter = this;
-    _.each(keys, function(key) {
-      view = views_hash[key];
-      if (key !== "body"){
-        $(key).parent().addClass("is_displayed")
-      }
-      
-      $(key).html(view.render().$el);
-      
-      appRouter._currentViews.push(view);
-    });
-  },
   
   treesShow: function (id) {
     console.log("TREE SHOW")
@@ -69,7 +47,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
       model: tree
     });
     
-    this.populateView({
+    this._populateView("split", {
       "body"          : background,
       "#left-content" : showView,
       "#page-info-container" : pageInfo
@@ -91,7 +69,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
       pid: person_id
     });
     
-    this.populateView({
+    this._populateView("split", {
       "body"          : background,
       "#left-content" : showView,
       "#page-info-container" : pageInfo
@@ -107,6 +85,33 @@ App.Routers.AppRouter = Backbone.Router.extend({
 
     background.populateView({ "#right-content": showPersonView});
     showPersonView.makePretty();
+  },
+  
+  
+  // Expect hash with { el_to_replace_html: view}
+  _populateView: function ( page_type, views_hash) {
+    var keys = Object.keys(views_hash);
+    var view;
+
+    this._currentViews = this._currentViews || []
+    
+    _.each(this._currentViews, function (view) {
+      view.remove();
+    });
+    
+    var appRouter = this;
+    _.each(keys, function(key) {
+      view = views_hash[key];
+      
+      $(key).html(view.render().$el);
+      
+      appRouter._currentViews.push(view);
+    });
+    
+    $("#full-page").hide();
+    $("#split-page").hide();
+    if ( page_type === "full" ) { $("#full-page").show() }
+    if ( page_type === "split" ) { $("#split-page").show() }
   },
   
   _removeCurrentViews: function (){

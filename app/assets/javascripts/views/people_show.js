@@ -57,7 +57,6 @@ App.Views.PeopleShow = Backbone.View.extend({
     var $personObject = $(event.currentTarget)
     var person_id = $personObject.attr("class").split(" ").pop();
         
-    console.log("local id", $personObject.attr("id"))
     $(".floating-subview").remove();  // Remove old subviews above person show view
     var newOptionsView = new App.Views.PersonShowOptions({
       person_id: person_id,
@@ -304,13 +303,6 @@ App.Views.PeopleShow = Backbone.View.extend({
 
     }
   
-    // var oldBottom = $bottom_line.position().top + $bottom_line.height()
-    //
-    // adjustLine($bottom_line, {
-    //   "top": $line.position().top,
-    //   "height": oldBottom - $line.position().top
-    // });
-  
   },
 
   // Utility: connects two lines horizontally; raising bottom line if not alligned
@@ -347,11 +339,6 @@ App.Views.PeopleShow = Backbone.View.extend({
     var list_child_lines = $('.child-line.' + parent1_id + '.' + parent2_id)
 
     this.connectAllLines($parent_line, list_child_lines)
-  
-    // for(var i=0; i< list_child_lines.length; i++){
-    //   var $child_line = $(list_child_lines[i]);
-    //   connectLines($parent_line, $child_line)
-    // }
   },
 
 
@@ -509,7 +496,6 @@ App.Views.PeopleShow = Backbone.View.extend({
       newPosition.left = newPosition.left + ($person.width()/2)
       
       $dot.css(newPosition)
-      console.log(newPosition)
     });
   },
   
@@ -527,7 +513,6 @@ App.Views.PeopleShow = Backbone.View.extend({
     var PERSON_OBJECT_WIDTH = 75;
 
     var WINDOW_SIZE = (MIN_PERSON_WIDTH + SPACE_BTW_PEOPLE) * (maxPeople + 1);
-    console.log("WINDOW SIZE", WINDOW_SIZE, maxLevel)
     var $CONTAINER = $('.people-container') // hard coded in draw-line
     var $FIRST_PERSON = $($('.child')[0]);
 

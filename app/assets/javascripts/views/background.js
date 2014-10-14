@@ -67,16 +67,8 @@ App.Views.Background = Backbone.View.extend({
     event.preventDefault();
     
     var tree_id = $(event.currentTarget).data("tid");
-    //
-    // var showPersonView = new App.Views.PeopleShow({
-    //   pid: person_id
-    // });
-    //
-    // this.populateView({ "#right-content": showPersonView});
-    // showPersonView.makePretty();
-    //
+
     // Assumes #tree/:somenumber
-    
     var oldURL = Backbone.history.fragment.split("/");
     var newURL = oldURL.shift() + "/" + oldURL.shift();
     Backbone.history.navigate(newURL);

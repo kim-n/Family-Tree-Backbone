@@ -2,7 +2,6 @@
 
 <% if( person !== undefined){ %>
   <% _.each(person.print_info(), function (info, index) {  %>
-    <%= console.log(index) %>
     <% if (info.person.escape("parents_id")){ %>
       <div class="dot parent-dot <%= info.person.id %>"></div>
     <% } %>
