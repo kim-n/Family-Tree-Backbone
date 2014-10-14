@@ -20,102 +20,85 @@
 *************** CSS REST **************
 **************************************/
 
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-abbr, address, cite, code,
-del, dfn, em, img, ins, kbd, q, samp,
-small, strong, sub, sup, var,
-b, i,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {
-    margin:0;
-    padding:0;
-    border:0;
-    outline:0;
-    font-size:100%;
-    vertical-align:baseline;
-    background:transparent;
-}
-body {
-    line-height:1;
-}
-article,aside,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section {
-    display:block;
-}
-nav ul {
-    list-style:none;
-}
-blockquote, q {
-    quotes:none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content:'';
-    content:none;
-}
-a {
-    margin:0;
-    padding:0;
-    font-size:100%;
-    vertical-align:baseline;
-    background:transparent;
-}
-/* change colours to suit your needs */
-ins {
-    background-color:#ff9;
-    color:#000;
-    text-decoration:none;
-}
-/* change colours to suit your needs */
-mark {
-    background-color:#ff9;
-    color:#000;
-    font-style:italic;
-    font-weight:bold;
-}
-del {
-    text-decoration: line-through;
-}
-abbr[title], dfn[title] {
-    border-bottom:1px dotted;
-    cursor:help;
-}
-table {
-    border-collapse:collapse;
-    border-spacing:0;
-}
-/* change border colour to suit your needs */
-hr {
-    display:block;
-    height:1px;
-    border:0;
-    border-top:1px solid #cccccc;
-    margin:1em 0;
-    padding:0;
-}
-input, select {
-    vertical-align:middle;
+
+html, body, header, footer, section, article, div, span,
+strong, a, img, p, h1, h2, h3, time, ul, li, small, input, select, form {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
+body {
+  font-family: sans-serif;
+  background: transparent;
+  font-size: 16px;
+  line-height: normal;
+}
+
+ul {
+  list-style: none;
+}
+
+form {
+  display: inline;
+}
+
+a {
+  text-decoration: underline;
+  color: red;
+}
+
+strong {
+  font-weight: bold;
+}
+
+img {
+  display: block;
+}
+
+form > div {
+  display:inline;
+}
+
+/*
+input[type="password"], input[type="text"], input[type="file"], input[type="checkbox"], textarea {
+  background: #FDF9EC;
+  font-size: 16px;
+  border: 1px solid #eee;
+  display:block;
+  width: 400px;
+  padding: 4px;
+  margin-bottom: 15px;
+}
+*/
 
 /************************************** 
 *************** MY CSS ****************
 **************************************/
+
+$background-color: #ccc;
+$people-color: green;
+$current-person-color: yellow;
+$line-border-color: green;
+$header-color: lightgreen;
+$divider-color: black;
+$page-info-color: pink;
+$left-column-color: lightblue;
+
 body {
   position: absolute;
   height: 100%;
   width: 100%;
   font-family: sans-serif;
   font-size: 16px;
-  background: #ababab;
+  background: $background-color;
 }
 
 footer {
+  display: none;
   text-align: center;
   background: black;
   color: white;
@@ -124,9 +107,10 @@ footer {
 }
 
 header {
-  font-size: 16px;
+  font-size: 38px;
   font-family: verdana;
-  background: lightgreen;
+  background: $header-color;
+  color: white;
   padding: 10px 10px 10px 10px;
   height: 50px;
 }
@@ -163,19 +147,18 @@ h1 {
 #divider {
   height: 30px;
   width: 100%;
-  background-color: black;
+  background-color: $divider-color;
 }
 
 #page-info {
   height: 20px;
-  background: pink;
+  background: $page-info-color;
   padding-left: 20px;
 }
 
 #page-info form, #page-info form div {
   display: inline;
 }
-
 
 body > div{
   position: relative;
@@ -215,7 +198,7 @@ body > div{
   padding: 20px 0px 0px 40px;
   min-height: 530px;
   width: 18%;
-  background: lightblue;
+  background: $left-column-color;
   overflow: scroll; 
 }
 
@@ -227,13 +210,6 @@ body > div{
   overflow: scroll;
 }
 
-
-footer {
-  display: none;
-}
-
-
-
 .display-off {
   display: none;
 }
@@ -241,18 +217,6 @@ footer {
 .is_displayed {
   display: inline;
 }
-
-
-/* tree & people show page */
-
-
-
-/*form, input[type=submit]{
-  display: inline;
-}*/
-
-
-
 
 #flash-errors, #flash-notices {
   text-align: center;
@@ -263,16 +227,9 @@ footer {
   background: yellow;
 }
 
-
-
 .session-form {
   text-align: center;
-  padding-top
 }
-
-
-
-
 
 
 /*#actions {
@@ -326,7 +283,7 @@ footer {
   position: relative;
   border: 2px solid transparent;  
   margin: auto;
-  background: yellow; 
+  background: $people-color; 
   width: 75px;
   height: 75px;
   text-align: center;
@@ -335,7 +292,7 @@ footer {
 }
 
 .people-container .current-person {
-  background: lightgreen;
+  background: $current-person-color;
 }
 
 .people-container img.person-avatar {
@@ -365,8 +322,8 @@ div.line{
   height: 1px;
   width: 1px;
   
-  border: 1px solid green;
-  background: green;
+  border: 1px solid $line-border-color;
+  background: $line-border-color;
   position: absolute;
 }
 
@@ -382,8 +339,8 @@ div.parent-line, div.child-line {
 div.dot {
   width: 4px;
   height: 4px;
-  background: green;
-  border: 2px solid green;
+  background: $line-border-color;
+  border: 2px solid $line-border-color;
   border-radius: 25px;
   z-index: 3;
 }
@@ -508,4 +465,9 @@ input[type="checkbox"] {
 
 .edit-self input {
   width: 70px;
+}
+
+
+#notice {
+  color: white;
 }
