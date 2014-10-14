@@ -143,21 +143,20 @@ App.Views.PeopleShow = Backbone.View.extend({
   
   
   enlargen: function (event) {
+    
     $line = $(event.currentTarget);
-    if ($line.hasClass("child-dot")){
-      $line.css({"height" : "7px", "width" : "7px", "background" : "red"})
-    } else if ($line.hasClass("spouse-line")){
-      $line.css({"height" : "4px", "background" : "red", "margin-top" : "-2px"})
-    }
+    var classes = $line.attr('class').split(' ');
+    var prnt1_id = classes.pop();
+    var prnt2_id = classes.pop();
+    
+    $(".line.child-dot." + prnt1_id + "." + prnt2_id).css({"height" : "7px", "width" : "7px", "background" : "red"});
+    $(".line.spouse-line." + prnt1_id + "." + prnt2_id).css({"height" : "4px", "background" : "red", "margin-top" : "-2px"});
+
   },
   
   unenlargen: function (event) {
-    $line = $(event.currentTarget);
-    if ($line.hasClass("child-dot")){
-      $line.css({"height" : "4px", "width" : "4px", "background" : "green"})
-    } else if ($line.hasClass("spouse-line")){
-      $line.css({"height" : "1px", "background" : "green", "margin-top" : "0px"})
-    }
+    $(".child-dot").css({"height" : "4px", "width" : "4px", "background" : "green"});
+    $(".spouse-line").css({"height" : "1px", "background" : "green", "margin-top" : "0px"})
   },
   
   // Utility: drawing lines
