@@ -1,0 +1,7 @@
+<% if (tree) { %>
+  <a class="show-tree" data-tid="<%= tree.get("id") %>" href="#"><%= tree.escape("name") %></a>  
+<% } %>
+<% if (person) { %>
+  &nbsp;&nbsp;>>&nbsp;&nbsp;
+  <a class="show-person" data-pid="<%= person.get("id") %>" href="#"><%= person.escape("name") %></a>  
+<% } %>

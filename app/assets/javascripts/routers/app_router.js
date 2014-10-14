@@ -65,9 +65,14 @@ App.Routers.AppRouter = Backbone.Router.extend({
       model: tree
     });
     
+    var pageInfo = new App.Views.PageInfo({
+      model: tree
+    });
+    
     this.populateView({
       "body"          : background,
-      "#left-content" : showView
+      "#left-content" : showView,
+      "#page-info-container" : pageInfo
     });
     
   },
@@ -81,9 +86,15 @@ App.Routers.AppRouter = Backbone.Router.extend({
       model: tree
     });
     
+    var pageInfo = new App.Views.PageInfo({
+      model: tree,
+      pid: person_id
+    });
+    
     this.populateView({
       "body"          : background,
-      "#left-content" : showView
+      "#left-content" : showView,
+      "#page-info-container" : pageInfo
     });
     
     var showPersonView = new App.Views.PeopleShow({
@@ -92,14 +103,14 @@ App.Routers.AppRouter = Backbone.Router.extend({
     
     this._removeCurrentViews
 
-    this.currentViews = [background, showView];
+    this._currentViews = [background, showView, pageInfo];
 
     background.populateView({ "#right-content": showPersonView});
     showPersonView.makePretty();
   },
   
   _removeCurrentViews: function (){
-    this.currentViews = this.currentViews || []
+    this._currentViews = this._currentViews || []
     _(this._currentViews).each( function(view){
       view.remove();
     })

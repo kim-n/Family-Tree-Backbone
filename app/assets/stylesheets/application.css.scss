@@ -152,13 +152,13 @@ h1 {
   background-color: $divider-color;
 }
 
-#page-info {
+#page-info-container {
   height: 20px;
   background: $page-info-color;
   padding-left: 20px;
 }
 
-#page-info form, #page-info form div {
+#page-info-container form, #page-info-container form div {
   display: inline;
 }
 

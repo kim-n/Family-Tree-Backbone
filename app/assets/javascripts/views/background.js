@@ -2,7 +2,8 @@ App.Views.Background = Backbone.View.extend({
   template: JST["background"],
   
   events: {
-    "click .show-person": "display",
+    "click .show-person": "displayPerson",
+    "click .show-tree": "displayTree",
   },
   
   render: function () {
@@ -36,7 +37,7 @@ App.Views.Background = Backbone.View.extend({
     });
   },
   
-  display: function (event){
+  displayPerson: function (event){
     event.preventDefault();
     
     var person_id = $(event.currentTarget).data("pid");
@@ -44,13 +45,40 @@ App.Views.Background = Backbone.View.extend({
     var showPersonView = new App.Views.PeopleShow({
       pid: person_id
     });
-
-    this.populateView({ "#right-content": showPersonView});
+    
+    var pageInfo = new App.Views.PageInfo({
+      model: App.Models.currentTree,
+      pid: person_id
+    });
+    
+    this.populateView({ 
+      "#right-content": showPersonView,
+      "#page-info-container": pageInfo
+    });
     showPersonView.makePretty();
     
     // Assumes #tree/:somenumber
     var oldURL = Backbone.history.fragment.split("/");
     var newURL = oldURL.shift() + "/" + oldURL.shift() + "/people/" + person_id;
+    Backbone.history.navigate(newURL);
+  },
+  
+  displayTree: function (event){
+    event.preventDefault();
+    
+    var tree_id = $(event.currentTarget).data("tid");
+    //
+    // var showPersonView = new App.Views.PeopleShow({
+    //   pid: person_id
+    // });
+    //
+    // this.populateView({ "#right-content": showPersonView});
+    // showPersonView.makePretty();
+    //
+    // Assumes #tree/:somenumber
+    
+    var oldURL = Backbone.history.fragment.split("/");
+    var newURL = oldURL.shift() + "/" + oldURL.shift();
     Backbone.history.navigate(newURL);
   }
 });

@@ -1,7 +1,8 @@
-<h1><%= tree.get("name") %></h1>
+<a class="show-tree" data-tid="<%= tree.id%>" href="#">
+  <%= tree.get("name") %>
+</a>
 
-
-<ul class="list-people">
+<ul class="list-people">  
   <% tree.people().each(function (person) { %>
     <li>
       <a class="show-person" data-pid="<%= person.id%>" href="#">
