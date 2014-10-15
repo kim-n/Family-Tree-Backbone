@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     
     resources :people, :only => [:create, :show, :update, :destroy]
     resources :spouseships, :only => [:create, :show]
+    resources :users, :only => [:create, :update]
+    resources :sessions
   end
   
   
