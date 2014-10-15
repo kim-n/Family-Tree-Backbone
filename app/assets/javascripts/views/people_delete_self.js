@@ -15,7 +15,6 @@ App.Views.PersonDeleteSelf = Backbone.View.extend({
     })
     
     this.$el.html(renderedContent);
-    
     return this;
   },
   

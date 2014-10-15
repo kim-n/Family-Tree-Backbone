@@ -35,6 +35,12 @@ App.Routers.AppRouter = Backbone.Router.extend({
   treesShow: function (id) {
     console.log("TREE SHOW")
     
+    App.Models.currentUser = new App.Models.UserSession();
+    if ($.cookie("session_token")) {
+      App.Models.currentUser.set("id", $.cookie("session_token") );
+      App.Models.currentUser.fetch();
+    }
+    
     var tree = App.Models.currentTree = App.Collections.trees.getOrFetch(id);
     
     var background = new App.Views.Background();
@@ -47,15 +53,26 @@ App.Routers.AppRouter = Backbone.Router.extend({
       model: tree
     });
     
+    var userInfo = new App.Views.UserInfo({});
+    
     this._populateView("split", {
       "body"          : background,
       "#left-content" : showView,
-      "#page-info-container" : pageInfo
+      "#page-info-container" : pageInfo,
+      "#user-info-container" : userInfo      
     });
     
   },
   
   personShow: function (id, person_id) {
+    console.log("PERSON SHOW")
+    
+    App.Models.currentUser = new App.Models.UserSession();
+    if ($.cookie("session_token")) {
+      App.Models.currentUser.set("id", $.cookie("session_token") );
+      App.Models.currentUser.fetch();
+    }
+    
     var tree = App.Models.currentTree = App.Collections.trees.getOrFetch(id);
     
     var background = new App.Views.Background();
@@ -68,11 +85,14 @@ App.Routers.AppRouter = Backbone.Router.extend({
       model: tree,
       pid: person_id
     });
+        
+    var userInfo = new App.Views.UserInfo({});
     
     this._populateView("split", {
       "body"          : background,
       "#left-content" : showView,
-      "#page-info-container" : pageInfo
+      "#page-info-container" : pageInfo,
+      "#user-info-container" : userInfo      
     });
     
     var showPersonView = new App.Views.PeopleShow({
@@ -111,7 +131,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
     $("#full-page").hide();
     $("#split-page").hide();
     if ( page_type === "full" ) { $("#full-page").show() }
-    if ( page_type === "split" ) { $("#split-page").show() }
+    if ( page_type === "split" ) { $("#split-page").show() }    
   },
   
   _removeCurrentViews: function (){

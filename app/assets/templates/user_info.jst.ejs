@@ -1,0 +1,34 @@
+<% if (user.attributes.email) { %>
+  <a href="#"><%= user.escape("email") %></a>
+  <a id="user-sign-out" href="#">Sign Out</a>
+<% } else {  %>
+  <a id="user-sign-in" href="#">Sign In</a>
+  <a id="user-create" href="#">Create</a>
+  
+  
+  
+  <div class="user-create-view">
+    Create User
+    <form class="create-new-user">  
+      <input type="text" name="user[email]" placeholder="Email Address"></input>
+      <input type="password" name="user[password]" placeholder="Password"></input>
+
+      <input type="submit" value="Create!"></input>
+    </form>
+
+    <a class="hide-view">Cancel</a>
+  </div>
+  
+  <div class="user-sign-in-view">
+    Sign In
+    <form class="sign-in-user">  
+      <input type="text" name="user[email]" placeholder="Email Address"></input>
+      <input type="password" name="user[password]" placeholder="Password"></input>
+
+      <input type="submit" value="Sign In!"></input>
+    </form>
+
+    <a class="hide-view">Cancel</a>
+  </div>
+  
+<% } %>

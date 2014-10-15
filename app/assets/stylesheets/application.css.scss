@@ -85,7 +85,7 @@ $current-person-color: yellow;
 $line-border-color: green;
 $header-color: lightgreen;
 $divider-color: black;
-$page-info-color: pink;
+$info-color: pink;
 $left-column-color: lightblue;
 
 body {
@@ -152,15 +152,22 @@ h1 {
   background-color: $divider-color;
 }
 
-#page-info-container {
+#info-container {
+  font-size: 14px;
   height: 20px;
-  background: $page-info-color;
-  padding-left: 20px;
+  background-color: $info-color;
 }
 
-#page-info-container form, #page-info-container form div {
-  display: inline;
+#page-info-container {
+  margin-left : 20px;
 }
+
+#user-info-container {
+  position: absolute;
+  right: 0;
+  margin-right : 20px;
+}
+
 
 body > div{
   position: relative;
@@ -476,4 +483,13 @@ input[type="checkbox"] {
   text-align: center;
   display: none;
   color: white;
+}
+
+.user-sign-out-view,
+.user-sign-in-view,
+.user-create-view {
+  display: none;
+  background: blue;
+  position: absolute;
+  right: 0;
 }

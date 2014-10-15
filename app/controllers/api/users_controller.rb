@@ -6,7 +6,7 @@ class Api::UsersController < ApplicationController
   #
   
   def show
-    @user = User.find_by_credentials(params[:user])
+    @user = User.find_by_credentials(user_params[:email], user_params[:password])
     render "show"
   end
   
@@ -16,7 +16,7 @@ class Api::UsersController < ApplicationController
       log_in(@user)
       render "show"
     else
-      render :json => @person.errors, :status => :unprocessable_entity
+      render :json => @user.errors, :status => :unprocessable_entity
     end
   end
   

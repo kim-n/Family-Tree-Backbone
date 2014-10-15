@@ -1,6 +1,8 @@
 App.Views.PageInfo = Backbone.View.extend({
   template: JST["page_info"],
   
+  tagName: "span",
+  
   className: "page-info",
 
   events: {

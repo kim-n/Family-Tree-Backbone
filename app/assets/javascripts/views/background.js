@@ -2,8 +2,8 @@ App.Views.Background = Backbone.View.extend({
   template: JST["background"],
   
   events: {
-    "click .show-person": "displayPerson",
-    "click .show-tree": "displayTree",
+    "click .show-person": "personDisplay",
+    "click .show-tree": "treeDisplay"
   },
   
   render: function () {
@@ -37,8 +37,10 @@ App.Views.Background = Backbone.View.extend({
     });
   },
   
-  displayPerson: function (event){
+  personDisplay: function (event){
     event.preventDefault();
+    
+    
     
     var person_id = $(event.currentTarget).data("pid");
 
@@ -63,7 +65,7 @@ App.Views.Background = Backbone.View.extend({
     Backbone.history.navigate(newURL);
   },
   
-  displayTree: function (event){
+  treeDisplay: function (event){
     event.preventDefault();
     
     var tree_id = $(event.currentTarget).data("tid");
