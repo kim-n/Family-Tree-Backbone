@@ -192,7 +192,7 @@ body > div{
   margin: auto;
   width: 80%;
   height: 100%;
-  background: red;
+  background: grey;
 }
 
 #split-page {
@@ -419,6 +419,7 @@ div.dot {
 
 */
 
+.add-tree,
 .add-spouse,
 .add-parents,
 .delete-self,
@@ -446,6 +447,7 @@ div.parent-dot {
   border-radius: 25px;
 }
 
+.new-tree-form
 .new-spouse-form,
 .new-parents-form,
 .delete-self-form,

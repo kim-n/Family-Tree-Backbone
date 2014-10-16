@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
   # before_filter :require_current_user!, only: [:update]
   # before_filter :require_no_current_user!, only: [:create]
   #
-  #
+  
   
   def show
     @user = User.find_by_credentials(user_params[:email], user_params[:password])

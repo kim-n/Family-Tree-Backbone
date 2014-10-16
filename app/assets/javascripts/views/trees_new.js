@@ -1,15 +1,24 @@
 App.Views.TreesNew = Backbone.View.extend({
   template: JST["trees/new"],
   
+  className: "add-tree floating-subview",
+  
   events: {
-    "submit form": "submit"
+    "submit form.new-tree-form": "submit",
+    "click a.close": "closeView"
   },
   
   render: function () {
+    $(".floating-subview").remove()
     var renderedContent = this.template();
     this.$el.html(renderedContent);
     
     return this; 
+  },
+  
+  closeView: function (event) {
+    event.preventDefault();
+    this.remove();
   },
   
   submit: function (event) {

@@ -2,13 +2,15 @@ Rails.application.routes.draw do
   root 'site#root'
   
   namespace :api, :defaults => {:format => :json} do
-    resources :trees, :only => [:index, :create, :show] do
+    resources :trees, :only => [:create, :show] do
       resources :people, :only => [:index]
     end
     
     resources :people, :only => [:create, :show, :update, :destroy]
     resources :spouseships, :only => [:create, :show]
-    resources :users, :only => [:create, :update, :show]
+    resources :users, :only => [:create, :update, :show] do
+      resources :trees, :only => [:index]
+    end
     resources :sessions, :only => [:show]
   end
   

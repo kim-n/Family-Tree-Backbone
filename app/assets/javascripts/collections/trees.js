@@ -1,7 +1,9 @@
 App.Collections.Trees = Backbone.Collection.extend({
   model: App.Models.Tree,
   
-  url: "/api/trees",
+  url: function(){
+    return "api/users/" + this.user.get("id") + "/trees"
+  },
   
   getOrFetch: function (id) {
     var trees = this;
@@ -19,7 +21,9 @@ App.Collections.Trees = Backbone.Collection.extend({
     return tree;
   },
   
-  initialize: function(){}
+  initialize: function(models, options){
+    this.user = options.user;
+  }
 });
 
-App.Collections.trees = new App.Collections.Trees();
+// App.Collections.trees = new App.Collections.Trees();

@@ -1,34 +1,29 @@
 App.Routers.AppRouter = Backbone.Router.extend({
   routes: {
-    "": "treesIndex",
-    "trees/new": "treesNew",
+    "": "siteIndex",
     "trees/:id(/people/:person_id(/))": "personShow",
     "trees/:id(*something)": "treesShow"
   },
   
-  treesIndex: function () {
+  siteIndex: function () {
+    App.Models.currentUser = new App.Models.UserSession();
+    if ($.cookie("session_token")) {
+      App.Models.currentUser.set("id", $.cookie("session_token") );
+      App.Models.currentUser.fetch()
+    }
+    
+    var mainView = new App.Views.Home({});
+
     var background = new App.Views.Background();
 
-    App.Collections.trees.fetch();
-    
-    var indexView = new App.Views.TreesIndex({
-      collection: App.Collections.trees
-    });
+    var userInfo = new App.Views.UserInfo({});
     
     this._populateView("full", {
       "body"  : background,
-      "#full-content" : indexView
+      "#full-content" : mainView,
+      "#user-info-container" : userInfo      
     });
     
-
-  },
-  
-  treesNew: function () {
-    var newView = new App.Views.TreesNew();
-    this._populateView("full", {
-      "body"  : background,
-      "#full-content" : newView
-    });
   },
   
   

@@ -1,7 +1,7 @@
 class Api::TreesController < ApplicationController
   
   def index
-    @trees = Tree.all
+    @trees = Tree.where(user_id: params[:user_id])
     render "index"
   end
   
