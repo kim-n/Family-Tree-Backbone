@@ -30,6 +30,7 @@ App.Views.UserInfo = Backbone.View.extend({
   },
   
   showView: function (event) {
+    $(".user-info-form").hide()
     event.preventDefault();
     var viewClass = $(event.currentTarget).attr("id") + "-view";
     console.log(viewClass)

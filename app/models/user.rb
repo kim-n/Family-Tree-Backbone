@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   validates :email, :presence => true
   validates :password_digest, :presence => { :message => "Password can't be blank" }
   
-  has_many :trees, class_name: "Tree", foreign_key: :user_id, inverse_of: :user, dependent: :destroy
+  has_many :trees, class_name: "Tree", foreign_key: :user_id, inverse_of: :user
   
   after_initialize :ensure_session_token
   

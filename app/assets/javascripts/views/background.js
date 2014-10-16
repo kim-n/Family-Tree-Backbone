@@ -40,8 +40,6 @@ App.Views.Background = Backbone.View.extend({
   personDisplay: function (event){
     event.preventDefault();
     
-    
-    
     var person_id = $(event.currentTarget).data("pid");
 
     var showPersonView = new App.Views.PeopleShow({
@@ -69,11 +67,9 @@ App.Views.Background = Backbone.View.extend({
     event.preventDefault();
     
     var tree_id = $(event.currentTarget).data("tid");
-
-    // Assumes #tree/:somenumber
-    var oldURL = Backbone.history.fragment.split("/");
-    var newURL = oldURL.shift() + "/" + oldURL.shift();
-    Backbone.history.navigate(newURL);
+    
+    var newURL =  "trees/" + tree_id;
+    Backbone.history.navigate(newURL, {trigger: true});
   }
 });
 

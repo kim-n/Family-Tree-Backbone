@@ -6,12 +6,17 @@ class Api::TreesController < ApplicationController
   end
   
   def create
-    @tree = Tree.new(tree_params)
-    
-    if @tree.save
-      render "show"
+    user = User.find_by_session_token(params["user"]["session_token"])
+    if user == current_user
+      @tree = Tree.new(self.tree_params)
+      @tree.user_id = current_user.id
+      if @tree.save
+        render "show"
+      else
+        render :json => @tree.errors, :status => :unprocessable_entity
+      end
     else
-      render :json => @tree.errors, :status => :unprocessable_entity
+      render :json => ["User not logged in"], :status => :unprocessable_entity      
     end
   end
   

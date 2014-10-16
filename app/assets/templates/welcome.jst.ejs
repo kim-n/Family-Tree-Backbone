@@ -2,16 +2,8 @@ Welcome User!
 
 <h2>Welcome</h2>
 
-Your trees:
-<ul>
-  <% trees.each( function (tree) { %>
-    <li>
-      <a href="#/trees/<%= tree.id %>">
-        <%= tree.get("name") %>
-      </a>
-    </li>
-  <% })%>
-</ul>
-
 <a class="new-tree" href="#">New Tree</a>
+
+<div class="list-trees-container">List</div>
+
 

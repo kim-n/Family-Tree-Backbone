@@ -1,0 +1,9 @@
+<ul class="list-trees">  
+  <% trees.each(function (tree) { %>
+    <li>
+      <a class="show-tree" data-tid="<%= tree.get("id") %>" href="#">
+        <%= tree.escape("name") %>
+      </a>  
+    </li> 
+  <% }) %>
+</ul>

@@ -1,6 +1,7 @@
 <a href="#" class="close">X</a>
 
 <form class="new-tree-form">
+  <input type="hidden" name="user[session_token]" value="<%= user.escape("session_token") %>"></input>  
   <input type="text" name="tree[name]" placeholder="Treename" default="Untitled"></input>
-  <input type="+"></input>
+  <input type="submit" value="+"></input>
 </form>

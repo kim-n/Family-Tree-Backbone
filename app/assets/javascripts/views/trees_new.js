@@ -10,13 +10,16 @@ App.Views.TreesNew = Backbone.View.extend({
   
   render: function () {
     $(".floating-subview").remove()
-    var renderedContent = this.template();
+    var renderedContent = this.template({
+      user: App.Models.currentUser
+    });
     this.$el.html(renderedContent);
     
     return this; 
   },
   
   closeView: function (event) {
+    $(".add-tree").remove()
     event.preventDefault();
     this.remove();
   },
@@ -29,10 +32,10 @@ App.Views.TreesNew = Backbone.View.extend({
     
     console.log(App.Collections.trees)
     
-    newTree.save({}, {
+    newTree.save(params, {
       success: function () { 
         $("#notice").show().html( "Tree added" ).fadeOut(3000)
-        App.Collections.trees.add(newTree);
+        App.Models.currentUser.trees().add(newTree);
         Backbone.history.navigate("/", { trigger: true });
       },
       error: function () {

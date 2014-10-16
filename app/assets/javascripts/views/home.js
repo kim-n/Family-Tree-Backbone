@@ -8,6 +8,7 @@ App.Views.Home = Backbone.View.extend({
   
   initialize: function (options) {
     this.listenTo(App.Models.currentUser, "change", this.render);
+    this.listenTo(App.Models.currentUser.trees(), "change", this.render);        
   },
 
   render: function () {
@@ -15,13 +16,16 @@ App.Views.Home = Backbone.View.extend({
     var renderedContent = this.template_home()
     
     if ( App.Models.currentUser.is_signed_in() ) {
-      renderedContent = this.template_welcome({
-        trees: App.Models.currentUser.trees()
-      })
+      App.Models.currentUser.trees().fetch()
+      renderedContent = this.template_welcome()
+      var treeList = new App.Views.TreeIndex();
     }
     
     this.$el.html(renderedContent);
     
+    if(App.Models.currentUser.is_signed_in() ){
+      $(".list-trees-container").html(treeList.render().$el)
+    }
     return this;
   },
   

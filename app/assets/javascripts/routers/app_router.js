@@ -36,8 +36,10 @@ App.Routers.AppRouter = Backbone.Router.extend({
       App.Models.currentUser.fetch();
     }
     
-    var tree = App.Models.currentTree = App.Collections.trees.getOrFetch(id);
-    
+    var tree = App.Models.currentTree = new App.Models.Tree();
+    tree.set({"id": id})
+    tree.fetch();
+        
     var background = new App.Views.Background();
 
     var showView = new App.Views.TreesShow({
@@ -68,8 +70,10 @@ App.Routers.AppRouter = Backbone.Router.extend({
       App.Models.currentUser.fetch();
     }
     
-    var tree = App.Models.currentTree = App.Collections.trees.getOrFetch(id);
-    
+    var tree = App.Models.currentTree = new App.Models.Tree();
+    tree.set({"id": id})
+    tree.fetch();
+        
     var background = new App.Views.Background();
 
     var showView = new App.Views.TreesShow({
