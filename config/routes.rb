@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :users, :only => [:create, :update, :show] do
       resources :trees, :only => [:index]
     end
-    resources :sessions, :only => [:show]
+    resources :sessions, :only => [:show, :destroy]
   end
   
   

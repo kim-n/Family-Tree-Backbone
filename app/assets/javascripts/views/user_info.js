@@ -46,8 +46,20 @@ App.Views.UserInfo = Backbone.View.extend({
   userSignOut: function (event) {
     event.preventDefault();
     console.log("userSignOut clicked");
-    $.removeCookie('session_token');
-    App.Models.currentUser.clear();
+    
+    App.Models.currentUser.destroy({
+      success: function () {
+        console.log("Success: User logged out! ")
+        App.Models.currentTree = new App.Models.UserSession()
+        $.removeCookie('session_token');
+        
+        var oldURL = Backbone.history.fragment;
+        Backbone.history.loadUrl(oldURL);
+      },
+      error: function () {
+        $("#notice").show().html( "Failed to log out" ).fadeOut(3000)
+      }
+    })
   },
   
   userSignIn: function (event) {
@@ -62,14 +74,14 @@ App.Views.UserInfo = Backbone.View.extend({
       data: params,
       success: function (model, response) {
         App.Models.currentUser.set(model.attributes);
-        $("#notice").show().html( model.escape("email") + " created" ).fadeOut(3000)
+        console.log("Success: User logged in! ")
         $.cookie('session_token', model.attributes.session_token, { expires: 7 });
         
         var oldURL = Backbone.history.fragment;
         Backbone.history.loadUrl(oldURL);
       },
       error: function () {
-        $("#notice").show().html( "Failed to create user" ).fadeOut(3000)
+        $("#notice").show().html( "Failed to sign in" ).fadeOut(3000)
       }
     });
   },
