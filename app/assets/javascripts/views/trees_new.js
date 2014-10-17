@@ -27,11 +27,10 @@ App.Views.TreesNew = Backbone.View.extend({
   submit: function (event) {
     event.preventDefault();
     
+    $(".add-tree").remove()
     var params = $(event.currentTarget).serializeJSON();
     var newTree = new App.Models.Tree(params["tree"]);
-    
-    console.log(App.Collections.trees)
-    
+        
     newTree.save(params, {
       success: function () { 
         $("#notice").show().html( "Tree added" ).fadeOut(3000)
