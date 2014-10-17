@@ -42,20 +42,19 @@ App.Routers.AppRouter = Backbone.Router.extend({
         
     var background = new App.Views.Background();
 
-    var showView = new App.Views.TreesShow({
-      model: tree
-    });
+    var showView = new App.Views.TreesShow({ model: tree });
     
-    var pageInfo = new App.Views.PageInfo({
-      model: tree
-    });
+    var treeInfo = new App.Views.TreeInfo({ model: tree });
+    
+    var treeCommands = new App.Views.TreeCommands({ model: tree });
     
     var userInfo = new App.Views.UserInfo({});
     
     this._populateView("split", {
       "body"          : background,
       "#left-content" : showView,
-      "#page-info-container" : pageInfo,
+      "#tree-info-container" : treeInfo,
+      "#tree-commands-container" : treeCommands,
       "#user-info-container" : userInfo      
     });
     
@@ -76,21 +75,22 @@ App.Routers.AppRouter = Backbone.Router.extend({
         
     var background = new App.Views.Background();
 
-    var showView = new App.Views.TreesShow({
-      model: tree
-    });
+    var showView = new App.Views.TreesShow({ model: tree });
     
-    var pageInfo = new App.Views.PageInfo({
+    var treeInfo = new App.Views.TreeInfo({
       model: tree,
       pid: person_id
     });
-        
+       
+    var treeCommands = new App.Views.TreeCommands({ model: tree });
+    
     var userInfo = new App.Views.UserInfo({});
     
     this._populateView("split", {
       "body"          : background,
       "#left-content" : showView,
-      "#page-info-container" : pageInfo,
+      "#tree-info-container" : treeInfo,
+      "#tree-commands-container" : treeCommands,
       "#user-info-container" : userInfo      
     });
     
@@ -100,7 +100,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
     
     this._removeCurrentViews
 
-    this._currentViews = [background, showView, pageInfo];
+    this._currentViews = [background, showView, treeInfo];
 
     background.populateView({ "#right-content": showPersonView});
     showPersonView.makePretty();

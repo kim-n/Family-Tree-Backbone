@@ -46,14 +46,14 @@ App.Views.Background = Backbone.View.extend({
       pid: person_id
     });
     
-    var pageInfo = new App.Views.PageInfo({
+    var treeInfo = new App.Views.TreeInfo({
       model: App.Models.currentTree,
       pid: person_id
     });
     
     this.populateView({ 
       "#right-content": showPersonView,
-      "#page-info-container": pageInfo
+      "#tree-info-container": treeInfo
     });
     showPersonView.makePretty();
     

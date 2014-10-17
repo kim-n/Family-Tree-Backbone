@@ -30,17 +30,18 @@ App.Views.UserInfo = Backbone.View.extend({
   },
   
   showView: function (event) {
-    $(".user-info-form").hide()
     event.preventDefault();
     var viewClass = $(event.currentTarget).attr("id") + "-view";
     console.log(viewClass)
-    $("." + viewClass).show()
+    $("." + viewClass).toggle()
   },
   
   hideView: function (event) {
     event.preventDefault();
     var displayedView = $(event.currentTarget);
-    displayedView.parent().hide();
+    console.log(displayedView.parent())
+    
+    displayedView.parent().toggle();
   },
   
   userSignOut: function (event) {

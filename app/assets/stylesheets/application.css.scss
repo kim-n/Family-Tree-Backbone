@@ -158,8 +158,16 @@ h1 {
   background-color: $info-color;
 }
 
-#page-info-container {
+#tree-info-container {
+  position: absolute;
+  left: 0;
   margin-left : 20px;
+}
+
+#tree-commands-container {
+  position: absolute;
+  left: 23%;
+  
 }
 
 #user-info-container {
@@ -494,4 +502,10 @@ input[type="checkbox"] {
   background: blue;
   position: absolute;
   right: 0;
+}
+
+
+.new-person-form{
+  display: none;
+  margin: auto;
 }

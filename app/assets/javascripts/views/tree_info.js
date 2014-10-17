@@ -1,9 +1,9 @@
-App.Views.PageInfo = Backbone.View.extend({
-  template: JST["page_info"],
+App.Views.TreeInfo = Backbone.View.extend({
+  template: JST["tree_info"],
   
   tagName: "span",
   
-  className: "page-info",
+  className: "tree-info",
 
   events: {
     "submit form.delete-self-form": "deleteSelf",
