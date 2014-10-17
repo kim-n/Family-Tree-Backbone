@@ -1,5 +1,5 @@
 App.Views.TreesShow = Backbone.View.extend({
-  template: JST["trees/show"],
+  template: JST["people/index"],
   
   initialize: function () {
     this.listenTo(this.model, "sync", this.render);

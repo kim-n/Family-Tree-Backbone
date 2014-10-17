@@ -1,0 +1,17 @@
+<!-- Assumes tree is passed -->
+
+<form class="delete-people">
+  <ul class="list-people">  
+    <% tree.people().each(function (person) { %>
+      <li>
+        <input type="checkbox" name="people_ids[]" value="<%= person.id%>">
+          <a class="show-person" data-pid="<%= person.id%>" href="#">
+            <%= person.get("name") %>
+          </a>
+      </li> 
+    <% }) %>
+  </ul>
+  
+  <input type="submit" value="Delete">
+
+</form>

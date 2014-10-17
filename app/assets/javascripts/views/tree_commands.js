@@ -8,7 +8,7 @@ App.Views.TreeCommands = Backbone.View.extend({
   events: {
     "click a.add-person-link" : "toggleNewPersonForm",
     "submit form.new-person-form": "createNewPerson",
-    "click a.delete-person-link" : "deletePeople"    
+    "click a.delete-people-link" : "deletePeople"
   },
   
   initialize: function (options) {
@@ -53,5 +53,20 @@ App.Views.TreeCommands = Backbone.View.extend({
   
   deletePeople: function (event) {
     event.preventDefault();
+    this._currentDeleteView = this._currentDeleteView || null
+    
+    if (this._currentDeleteView) { 
+      this._currentDeleteView.remove();
+      this._currentDeleteView = null;
+    } else {
+      var deleteView = new App.Views.DeletePeopleList({
+        model: this.model
+      });
+      
+      this._currentDeleteView = deleteView;
+      $("#left-content").append(deleteView.render().$el);
+    };
+
+    
   }
 });

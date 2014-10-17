@@ -509,3 +509,16 @@ input[type="checkbox"] {
   display: none;
   margin: auto;
 }
+
+
+.delete-list{
+  position: absolute;
+  left: 0;
+  top: 120px;
+  width: 18%;
+  z-index: 1;
+  background: lightgreen;
+  padding: 20px 0px 0px 40px;
+  min-height: 530px;
+  overflow: scroll;  
+}

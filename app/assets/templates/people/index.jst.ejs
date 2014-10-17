@@ -1,7 +1,4 @@
-<a class="show-tree" data-tid="<%= tree.id%>" href="#">
-  <%= tree.get("name") %>
-</a>
-
+<!-- Assumes tree is passed -->
 <ul class="list-people">  
   <% tree.people().each(function (person) { %>
     <li>
@@ -11,3 +8,6 @@
     </li> 
   <% }) %>
 </ul>
+
+
+
