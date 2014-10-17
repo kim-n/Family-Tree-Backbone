@@ -12,7 +12,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
       App.Models.currentUser.fetch()
     }
     
-    var mainView = new App.Views.Home({});
+    var mainView = new App.Views.Main({});
 
     var background = new App.Views.Background();
 

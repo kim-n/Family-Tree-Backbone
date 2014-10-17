@@ -1,6 +1,6 @@
-App.Views.Home = Backbone.View.extend({
-  template_home: JST["home"],
-  template_welcome: JST["welcome"],
+App.Views.Main = Backbone.View.extend({
+  template_home: JST["main/home"],
+  template_welcome: JST["main/welcome"],
   
   events: {
     "click a.new-tree": "addTree"
