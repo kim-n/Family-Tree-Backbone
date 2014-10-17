@@ -64,6 +64,9 @@ App.Views.UserInfo = Backbone.View.extend({
         App.Models.currentUser.set(model.attributes);
         $("#notice").show().html( model.escape("email") + " created" ).fadeOut(3000)
         $.cookie('session_token', model.attributes.session_token, { expires: 7 });
+        
+        var oldURL = Backbone.history.fragment;
+        Backbone.history.loadUrl(oldURL);
       },
       error: function () {
         $("#notice").show().html( "Failed to create user" ).fadeOut(3000)
@@ -84,6 +87,9 @@ App.Views.UserInfo = Backbone.View.extend({
         App.Models.currentUser.set(model.attributes);
         $("#notice").show().html( model.escape("email") + " created" ).fadeOut(3000)
         $.cookie('session_token', model.attributes.session_token, { expires: 7 });
+
+        var oldURL = Backbone.history.fragment;
+        Backbone.history.loadUrl(oldURL);
       },
       error: function () {
         $("#notice").show().html( "Failed to create user" ).fadeOut(3000)
