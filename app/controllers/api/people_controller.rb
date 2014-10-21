@@ -1,4 +1,6 @@
 class Api::PeopleController < ApplicationController
+  before_filter -> { require_login_and_tree_owner params[:tree_id] }, only: [:create]
+  before_filter -> { require_login_and_person_owner params[:id] }, only: [:update, :destroy]  
   
   def index
     @people = Person.where(tree_id: params[:tree_id])
@@ -58,4 +60,19 @@ class Api::PeopleController < ApplicationController
     self.params[:person].permit(:name, :tree_id, :parents_id, :avatar)
   end
  
+  private
+  
+  def require_login_and_tree_owner(tree_id)
+    tree = Tree.find(tree_id)
+    unless current_user && ( current_user == tree.owner )
+      render :json => "Error: You don't own this tree", :status => :unprocessable_entity
+    end
+  end
+  
+  def require_login_and_person_owner(person_id)
+    person = Person.find(person_id)
+    unless current_user && ( current_user == person.tree.owner )
+      render :json => "Error: You don't own this person", :status => :unprocessable_entity
+    end
+  end
 end

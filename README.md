@@ -23,13 +23,14 @@ Live link: [Soon](https://github.com/kim-n/Family-Tree-Backbone)
 
 
 ### Log
-* 17-Oct-2014 update README
-
+* 17-Oct-14 update README
+* 21-Oct-14 Restrict creating, editing and deleting of trees, people, spouseships to user who owns resource.
 
 ### To-Do
 * Implement:
   * delete trees
   * delete person image in person edit
+  * delete spouseships
   * email notification
   * password reset
   

@@ -1,15 +1,7 @@
 class Api::UsersController < ApplicationController
-  
-  # before_filter :require_current_user!, only: [:update]
-  # before_filter :require_no_current_user!, only: [:create]
-  #
-  
-  
-  def show
-    @user = User.find_by_credentials(user_params[:email], user_params[:password])
-    render "show"
-  end
-  
+  before_filter -> { require_current_user params[:id] }, only: [:update]
+  before_filter :require_no_current_user, only: [:create]
+
   def create
     @user = User.new(self.user_params)
     if @user.save
@@ -20,7 +12,7 @@ class Api::UsersController < ApplicationController
     end
   end
   
-  def edit
+  def update
     @person = Person.find(params[:id])
     
     all_params = self.person_params
@@ -40,12 +32,17 @@ class Api::UsersController < ApplicationController
     self.params[:user].permit(:email, :password)
   end
   
-  def require_current_user!
-    redirect_to new_session_url if current_user.nil?
+  def require_current_user(person_id)
+    person = Person.find(person_id)
+    unless current_user && (person == current_user)
+      render :json => "Error: Can't edit someone else", :status => :unprocessable_entity
+    end
   end
 
-  def require_no_current_user!
-    redirect_to user_url(current_user) unless current_user.nil?
+  def require_no_current_user
+    if current_user
+      render :json => "Error: User already logged in", :status => :unprocessable_entity
+    end
   end
   
 end

@@ -1,4 +1,6 @@
 class Api::TreesController < ApplicationController
+  before_action :require_login, only: [:create, :update, :destroy]
+  before_action :require_owner, only: [:update, :destroy]
   
   def index
     @trees = Tree.where(user_id: params[:user_id])
@@ -50,5 +52,19 @@ class Api::TreesController < ApplicationController
   protected
   def tree_params
     self.params[:tree].permit(:name)
+  end
+  
+  private
+  def require_login
+    unless current_user
+      render :json => ["Error: No user logged in"], :status => :unprocessable_entity
+    end
+  end
+  
+  def require_owner
+    tree = Tree.find(params[:id])
+    unless current_user == tree.owner
+      render :json => ["Error: User does not own this tree"], :status => :unprocessable_entity
+    end
   end
 end
