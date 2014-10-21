@@ -8,10 +8,10 @@ Rails.application.routes.draw do
     
     resources :people, :only => [:create, :show, :update, :destroy]
     resources :spouseships, :only => [:create, :show]
-    resources :users, :only => [:create, :update, :show] do
+    resources :users, :only => [:create, :update] do
       resources :trees, :only => [:index]
     end
-    resources :sessions, :only => [:show, :destroy]
+    resources :sessions, :only => [:show, :create, :destroy]
   end
   
   

@@ -46,14 +46,13 @@ App.Views.UserInfo = Backbone.View.extend({
   
   userSignOut: function (event) {
     event.preventDefault();
-    console.log("userSignOut clicked");
     
     App.Models.currentUser.destroy({
       success: function () {
-        console.log("Success: User logged out! ")
-        App.Models.currentTree = new App.Models.UserSession()
+        App.Models.currentUser.clear()
         $.removeCookie('session_token');
         
+        // Refresh page so that session_token cookie in Rails is updated
         var oldURL = Backbone.history.fragment;
         Backbone.history.loadUrl(oldURL);
       },
@@ -69,15 +68,15 @@ App.Views.UserInfo = Backbone.View.extend({
     
     var params = $(event.currentTarget).serializeJSON();
     
-    var newUser = new App.Models.User({"id": 0});
+    var newSessionUser = new App.Models.UserSession(params);
     
-    newUser.fetch({
-      data: params,
+    newSessionUser.save({},{
       success: function (model, response) {
         App.Models.currentUser.set(model.attributes);
         console.log("Success: User logged in! ")
         $.cookie('session_token', model.attributes.session_token, { expires: 7 });
         
+        // Refresh page so that session_token cookie in Rails is updated
         var oldURL = Backbone.history.fragment;
         Backbone.history.loadUrl(oldURL);
       },
