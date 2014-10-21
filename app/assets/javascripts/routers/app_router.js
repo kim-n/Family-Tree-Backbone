@@ -98,9 +98,9 @@ App.Routers.AppRouter = Backbone.Router.extend({
       pid: person_id
     });
     
-    this._removeCurrentViews
-
-    this._currentViews = [background, showView, treeInfo];
+    // this._removeCurrentViews
+    //
+    // this._currentViews = [background, showView, treeInfo, treeCommands, userInfo];
 
     background.populateView({ "#right-content": showPersonView});
     showPersonView.makePretty();

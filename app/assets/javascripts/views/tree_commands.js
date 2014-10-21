@@ -13,12 +13,17 @@ App.Views.TreeCommands = Backbone.View.extend({
   
   initialize: function (options) {
     this.listenTo(this.model, "sync", this.render);
+    this.listenTo(App.Models.currentUser, "sync", this.render);
   },
 
   render: function () {
-    var renderedContent = this.template({
-      tree: this.model,
-    })
+    var renderedContent = ""
+    
+    if ((App.Models.currentUser.id !== undefined) && (this.model.get("user_id") == App.Models.currentUser.id)) {
+      renderedContent = this.template({
+        tree: this.model,
+      })
+    }
     
     this.$el.html(renderedContent);
     

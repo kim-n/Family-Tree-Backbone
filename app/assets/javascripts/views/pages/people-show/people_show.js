@@ -54,48 +54,58 @@ App.Views.PeopleShow = Backbone.View.extend({
   showOptions: function (event) {
     console.log("options clicked")    
     
-    var $personObject = $(event.currentTarget)
-    var person_id = $personObject.attr("class").split(" ").pop();
+    if (App.Models.currentTree.get("user_id") == App.Models.currentUser.id) {
+      var $personObject = $(event.currentTarget)
+      var person_id = $personObject.attr("class").split(" ").pop();
         
-    $(".floating-subview").remove();  // Remove old subviews above person show view
-    var newOptionsView = new App.Views.PersonShowOptions({
-      person_id: person_id,
-      person_local_id: $personObject.attr("id")
-    })
+      if ($(".person-options." + $personObject.attr("id")).is(":visible")) { 
+        $(".person-options." + $personObject.attr("id")).toggle()
+      } else {
+        $(".floating-subview").remove();  // Remove old subviews above person show view
+        var newOptionsView = new App.Views.PersonShowOptions({
+          person_id: person_id,
+          person_local_id: $personObject.attr("id")
+        })
+
+        var offset = ($personObject.parent().width() - $personObject.width() ) /2
     
-    var offset = ($personObject.parent().width() - $personObject.width() ) /2
+        var newPositions = {
+          top: $personObject.parent().position().top - 15,
+          left: $personObject.parent().position().left + offset
+        }
     
-    var newPositions = {
-      top: $personObject.parent().position().top - 15,
-      left: $personObject.parent().position().left + offset
+        $('.people-container').append(newOptionsView.render().$el);
+        $(".person-options-icons").css(newPositions);
+        $(".person-options").addClass($personObject.attr("id"))
+      }
     }
-    
-    $('.people-container').append(newOptionsView.render().$el);
-    $(".person-options-icons").css(newPositions);    
+        
   },
   
   
   createChild: function(event){
     console.log("create child clicked")
+    if (App.Models.currentTree.get("user_id") == App.Models.currentUser.id) {
     
-    var classes = $(event.currentTarget).attr("class").split(" ");
-    var parent_one_id = parseInt(classes.pop());
-    var parent_two_id = parseInt(classes.pop());
+      var classes = $(event.currentTarget).attr("class").split(" ");
+      var parent_one_id = parseInt(classes.pop());
+      var parent_two_id = parseInt(classes.pop());
   
-    var parents_spouse_record = App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_one_id, "spouse_two_id":parent_two_id}).concat(
-      App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_two_id, "spouse_two_id":parent_one_id})
-    );
+      var parents_spouse_record = App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_one_id, "spouse_two_id":parent_two_id}).concat(
+        App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_two_id, "spouse_two_id":parent_one_id})
+      );
     
-    $(".floating-subview").remove();  // Remove old subviews above person show view
-    var newChildView = new App.Views.PersonNewChild({
-      parents_id: parents_spouse_record[0].id
-    });
+      $(".floating-subview").remove();  // Remove old subviews above person show view
+      var newChildView = new App.Views.PersonNewChild({
+        parents_id: parents_spouse_record[0].id
+      });
         
-    $('body').append(newChildView.render().$el);
-    $(".add-child").css({
-      top: event.pageY - 10,
-      left: event.pageX - 10
-    });
+      $('body').append(newChildView.render().$el);
+      $(".add-child").css({
+        top: event.pageY - 10,
+        left: event.pageX - 10
+      });
+    }
   },
   
   
@@ -142,15 +152,15 @@ App.Views.PeopleShow = Backbone.View.extend({
   
   
   enlargen: function (event) {
+    if (App.Models.currentTree.get("user_id") == App.Models.currentUser.id) {    
+      $line = $(event.currentTarget);
+      var classes = $line.attr('class').split(' ');
+      var prnt1_id = classes.pop();
+      var prnt2_id = classes.pop();
     
-    $line = $(event.currentTarget);
-    var classes = $line.attr('class').split(' ');
-    var prnt1_id = classes.pop();
-    var prnt2_id = classes.pop();
-    
-    $(".line.child-dot." + prnt1_id + "." + prnt2_id).css({"height" : "7px", "width" : "7px", "background" : "red"});
-    $(".line.spouse-line." + prnt1_id + "." + prnt2_id).css({"height" : "4px", "background" : "red", "margin-top" : "-2px"});
-
+      $(".line.child-dot." + prnt1_id + "." + prnt2_id).css({"height" : "7px", "width" : "7px", "background" : "red"});
+      $(".line.spouse-line." + prnt1_id + "." + prnt2_id).css({"height" : "4px", "background" : "red", "margin-top" : "-2px"});
+    } 
   },
   
   unenlargen: function (event) {

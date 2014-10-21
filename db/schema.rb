@@ -11,19 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015014517) do
+ActiveRecord::Schema.define(version: 20141021175955) do
 
   create_table "people", force: true do |t|
     t.string   "name",                default: "Unknown", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "tree_id"
+    t.integer  "tree_id",                                 null: false
     t.integer  "parents_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
   end
+
+  add_index "people", ["tree_id"], name: "index_people_on_tree_id"
 
   create_table "spouseships", force: true do |t|
     t.integer  "spouse_one_id", null: false
@@ -36,11 +38,14 @@ ActiveRecord::Schema.define(version: 20141015014517) do
   add_index "spouseships", ["tree_id"], name: "index_spouseships_on_tree_id"
 
   create_table "trees", force: true do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer  "user_id",    null: false
   end
+
+  add_index "trees", ["name", "user_id"], name: "index_trees_on_name_and_user_id"
+  add_index "trees", ["user_id"], name: "index_trees_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",           null: false
@@ -49,5 +54,7 @@ ActiveRecord::Schema.define(version: 20141015014517) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end
