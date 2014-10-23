@@ -1,7 +1,7 @@
 <% if (tree) { %>
   <a class="add-person-link" data-tid="<%= tree.get("id") %>" href="#">+Person</a> 
   
-  <form class="new-person-form">
+  <form class="add-person-form">
     <input type="hidden" name="person[tree_id]" value="<%= tree.get("id")  %>"></input>
   
     <input type="text" name="person[name]" placeholder="Person Name"></input>
@@ -21,4 +21,8 @@
     <input type="text" name="tree[name]" placeholder="<%= tree.get("name")  %>"></input>
     <input type="submit" value="+"></input>
   </form>
+  
+  &nbsp; | &nbsp;
+  <a class="delete-tree-link" data-tid="<%= tree.get("id") %>" href="#">-Tree</a> 
+  
 <% } %>

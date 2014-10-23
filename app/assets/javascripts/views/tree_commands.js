@@ -7,9 +7,10 @@ App.Views.TreeCommands = Backbone.View.extend({
   
   events: {
     "click a.delete-people-link" : "deletePeople",
+    "click a.delete-tree-link" : "deleteTree",
     "click a.change-head-link" : "changeHead",
     "click a.add-person-link" : "toggleNewPersonForm",
-    "submit form.new-person-form": "createNewPerson",
+    "submit form.add-person-form": "createNewPerson",
     "click a.rename-tree-link" : "toggleRenameTreeForm",
     "submit form.rename-tree-form": "renameTree"
   },
@@ -35,7 +36,7 @@ App.Views.TreeCommands = Backbone.View.extend({
   
   toggleNewPersonForm: function (event) {
     event.preventDefault();
-    $(".new-person-form").toggle(); // toggles visibility of form
+    $(".add-person-form").toggle(); // toggles visibility of form
   },
   
   toggleRenameTreeForm: function (event) {
@@ -123,5 +124,20 @@ App.Views.TreeCommands = Backbone.View.extend({
         $("#notice").show().html( "Failed to change name" ).fadeOut(3000)
       }
     })
+  },
+  
+  
+  deleteTree: function (event) {
+    var confirmation = confirm("Sure you want to delete tree?")
+    if (confirmation) {
+      App.Models.currentTree.destroy({
+        success: function () {
+          $("#notice").show().html( "Tree deleted!" ).fadeOut(3000)         
+        },
+        error: function () {
+          $("#notice").show().html( "Failed to delete tree" ).fadeOut(3000)
+        }
+      })
+    }
   }
 });
