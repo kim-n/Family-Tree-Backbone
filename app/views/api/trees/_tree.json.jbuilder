@@ -1,4 +1,4 @@
-json.(tree, :id, :name, :user_id, :created_at, :updated_at)
+json.(tree, :id, :name, :user_id, :head_id, :created_at, :updated_at)
 
 
 

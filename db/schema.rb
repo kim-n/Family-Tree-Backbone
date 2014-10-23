@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021175955) do
+ActiveRecord::Schema.define(version: 20141023025038) do
 
   create_table "people", force: true do |t|
     t.string   "name",                default: "Unknown", null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20141021175955) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id",    null: false
+    t.integer  "head_id"
   end
 
   add_index "trees", ["name", "user_id"], name: "index_trees_on_name_and_user_id"
