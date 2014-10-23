@@ -1,5 +1,5 @@
 App.Views.DeletePeopleList = Backbone.View.extend({
-  template: JST["people/index_checkbox"],
+  template: JST["people/delete_people"],
   
   className: "delete-list",
   

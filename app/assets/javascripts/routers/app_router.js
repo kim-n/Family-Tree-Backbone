@@ -59,7 +59,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
     });
     
     var showPersonView = new App.Views.PeopleShow({
-      pid: undefined
+      pid: null
     });
 
     background.populateView({ "#right-content": showPersonView});

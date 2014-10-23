@@ -51,7 +51,7 @@ class Api::TreesController < ApplicationController
   
   protected
   def tree_params
-    self.params[:tree].permit(:name)
+    self.params[:tree].permit(:name, :head_id)
   end
   
   private

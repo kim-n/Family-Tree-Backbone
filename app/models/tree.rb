@@ -4,5 +4,5 @@ class Tree < ActiveRecord::Base
   has_many :people, class_name: "Person", foreign_key: :tree_id, inverse_of: :tree
   has_many :spouseships, :class_name => "Spouseship", :foreign_key => :tree_id, :inverse_of => :tree
   belongs_to :owner, class_name: "User", foreign_key: :user_id, inverse_of: :trees
-  has_one :head, class_name: "Person", foreign_key: :head_id
+  belongs_to :head, class_name: "Person", foreign_key: :head_id
 end

@@ -8,7 +8,8 @@ App.Views.TreeCommands = Backbone.View.extend({
   events: {
     "click a.add-person-link" : "toggleNewPersonForm",
     "submit form.new-person-form": "createNewPerson",
-    "click a.delete-people-link" : "deletePeople"
+    "click a.delete-people-link" : "deletePeople",
+    "click a.change-head-link" : "changeHead"
   },
   
   initialize: function (options) {
@@ -58,20 +59,45 @@ App.Views.TreeCommands = Backbone.View.extend({
   
   deletePeople: function (event) {
     event.preventDefault();
-    this._currentDeleteView = this._currentDeleteView || null
+    this._currDeleteView = this._currDeleteView || null
     
-    if (this._currentDeleteView) { 
-      this._currentDeleteView.remove();
-      this._currentDeleteView = null;
+    if (this._currChangeHeadView) { 
+      this._currChangeHeadView.remove();
+      this._currChangeHeadView = null;
+    }
+    
+    if (this._currDeleteView) { 
+      this._currDeleteView.remove();
+      this._currDeleteView = null;
     } else {
       var deleteView = new App.Views.DeletePeopleList({
         model: this.model
       });
       
-      this._currentDeleteView = deleteView;
+      this._currDeleteView = deleteView;
       $("#left-content").append(deleteView.render().$el);
     };
-
+  },
+  
+  changeHead: function (event) {
+    event.preventDefault();
+    this._currChangeHeadView = this._currChangeHeadView || null
     
+    if (this._currDeleteView) { 
+      this._currDeleteView.remove();
+      this._currDeleteView = null;
+    }
+    
+    if (this._currChangeHeadView) { 
+      this._currChangeHeadView.remove();
+      this._currChangeHeadView = null;
+    } else {
+      var changeHeadView = new App.Views.ChangeHead({
+        model: this.model
+      });
+      
+      this._currChangeHeadView = changeHeadView;
+      $("#left-content").append(changeHeadView.render().$el);
+    };
   }
 });

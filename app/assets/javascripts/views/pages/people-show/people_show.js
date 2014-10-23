@@ -34,7 +34,7 @@ App.Views.PeopleShow = Backbone.View.extend({
     
     var person = App.Models.currentTree.people().get(this.pid)
 
-    if (this.pid === undefined) {
+    if (!this.pid) {
       var head_id = App.Models.currentTree.get("head_id");
       if (head_id){
         person = App.Models.currentTree.people().get(head_id);
