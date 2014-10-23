@@ -30,7 +30,7 @@ Live link: [Soon](https://github.com/kim-n/Family-Tree-Backbone)
 * Implement:
   * ~~delete trees~~ (10-22-14)
   * ~~delete person image in person edit~~ (10-23-14)
-  * delete spouseships
+  * ~~delete spouseships~~ (10-23-14)
   * email notification
   * password reset
   

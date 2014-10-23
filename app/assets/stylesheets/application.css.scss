@@ -542,3 +542,16 @@ input[type="checkbox"] {
   min-height: 530px;
   overflow: scroll;  
 }
+
+.spouse-line.enlargen {
+  height: 4px;
+  background: red;
+  margin-top: -2px;
+}
+
+
+.child-dot.enlargen {
+  height: 7px;
+  width: 7px;
+  background: red;
+}

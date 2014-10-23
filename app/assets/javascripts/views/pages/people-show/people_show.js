@@ -5,7 +5,7 @@ App.Views.PeopleShow = Backbone.View.extend({
   template: JST["people/show"],
   
   events: {
-    "click .child-dot": "createChild",
+    "click .child-dot": "removeSpouse",
     "click .spouse-line": "createChild",
     
     "click .person-object": "showOptions",
@@ -93,12 +93,41 @@ App.Views.PeopleShow = Backbone.View.extend({
         
   },
   
+  removeSpouse: function(event){
+    console.log("create child clicked")
+    if (App.Models.currentTree.get("user_id") == App.Models.currentUser.id) {
+    
+      var classes = $(event.currentTarget).attr("class").split(" ");
+      var enlargenClass = classes.pop();
+      var parent_one_id = parseInt(classes.pop());
+      var parent_two_id = parseInt(classes.pop());
+  
+      var parents_spouse_record = App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_one_id, "spouse_two_id":parent_two_id}).concat(
+        App.Models.currentTree.spouse_list().where({"spouse_one_id":parent_two_id, "spouse_two_id":parent_one_id})
+      )[0];
+    
+      var confirmation  = confirm("Sure you want to delete this spouseship?")
+      
+      if (confirmation) {
+       parents_spouse_record.destroy({
+         success: function () {
+           $("#notice").show().html( "Spousseship deleted!" ).fadeOut(3000);
+           App.Models.currentTree.fetch();
+         },
+         error: function () {
+           $("#notice").show().html("Failed to delete spouseship" ).fadeOut(3000)
+         }
+       })
+      }
+    }
+  },
   
   createChild: function(event){
     console.log("create child clicked")
     if (App.Models.currentTree.get("user_id") == App.Models.currentUser.id) {
     
       var classes = $(event.currentTarget).attr("class").split(" ");
+      var enlargenClass = classes.pop();
       var parent_one_id = parseInt(classes.pop());
       var parent_two_id = parseInt(classes.pop());
   
@@ -168,15 +197,13 @@ App.Views.PeopleShow = Backbone.View.extend({
       var classes = $line.attr('class').split(' ');
       var prnt1_id = classes.pop();
       var prnt2_id = classes.pop();
-    
-      $(".line.child-dot." + prnt1_id + "." + prnt2_id).css({"height" : "7px", "width" : "7px", "background" : "red"});
-      $(".line.spouse-line." + prnt1_id + "." + prnt2_id).css({"height" : "4px", "background" : "red", "margin-top" : "-2px"});
+      var currentTargetClass = classes.pop()
+      $("." + currentTargetClass + "." + prnt1_id + "." + prnt2_id).addClass("enlargen");
     } 
   },
   
   unenlargen: function (event) {
-    $(".child-dot").css({"height" : "4px", "width" : "4px", "background" : "green"});
-    $(".spouse-line").css({"height" : "1px", "background" : "green", "margin-top" : "0px"})
+    $(".enlargen").removeClass("enlargen");
   },
   
   // Utility: drawing lines
