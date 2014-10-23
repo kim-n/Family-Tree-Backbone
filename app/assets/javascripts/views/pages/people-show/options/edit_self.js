@@ -1,10 +1,11 @@
 App.Views.PersonEditSelf = Backbone.View.extend({
   template: JST["people/edit_self"],
   
-  className: "edit-self floating-subview",
+  className: "edit-self",
   
   events: {
     "submit form.edit-self-form": "editSelf",
+    "click .cover": "closeView"
   },
   
   
@@ -18,6 +19,10 @@ App.Views.PersonEditSelf = Backbone.View.extend({
     return this;
   },
   
+  closeView: function(event) {
+    event.preventDefault()
+    this.remove();
+  },
   
   editSelf: function (event) {
     console.log("Add parents submitted")
@@ -31,11 +36,14 @@ App.Views.PersonEditSelf = Backbone.View.extend({
     _.each(person.attributes, function(value, key){
       formData.append("person[" + key + "]", value);
     });
-
+    
     formData.append('person[avatar]', $("#person-avatar")[0].files[0]);
     person.set("avatar", $("#person-avatar")[0].files[0]);
         
-    $(".edit-self").html("Saving...")
+    if (params["delete_avatar"]) {
+      formData.append("delete_avatar", true);      
+    }
+    
     // Use backbone save rather than Backbone.sync or $.ajax inorder to utilize callbacks
     person.save({}, {
       data: formData,

@@ -34,6 +34,7 @@ class Api::PeopleController < ApplicationController
     
     all_params.delete("name") if all_params["name"].blank?
     all_params.delete("avatar") if all_params["avatar"] == "undefined"
+    all_params["avatar"] = nil if params["delete_avatar"]
     
     if @person.update_attributes(all_params)
       render :json => @person

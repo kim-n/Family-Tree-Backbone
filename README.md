@@ -28,16 +28,16 @@ Live link: [Soon](https://github.com/kim-n/Family-Tree-Backbone)
 
 ### To-Do
 * Implement:
-  * delete trees
-  * delete person image in person edit
+  * ~~delete trees~~ (10-22-14)
+  * ~~delete person image in person edit~~ (10-23-14)
   * delete spouseships
   * email notification
   * password reset
   
 * Fix:
   * appearance
-  * check user credentials before CRUD operations
-  * correctly align delete-list-view
+  * ~~check user credentials before CRUD operations~~ (10-21-13)
+  * ~~correctly align delete-list-view~~
   
   
 ## thanks
