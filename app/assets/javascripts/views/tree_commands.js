@@ -6,10 +6,12 @@ App.Views.TreeCommands = Backbone.View.extend({
   className: "tree-commands",
   
   events: {
+    "click a.delete-people-link" : "deletePeople",
+    "click a.change-head-link" : "changeHead",
     "click a.add-person-link" : "toggleNewPersonForm",
     "submit form.new-person-form": "createNewPerson",
-    "click a.delete-people-link" : "deletePeople",
-    "click a.change-head-link" : "changeHead"
+    "click a.rename-tree-link" : "toggleRenameTreeForm",
+    "submit form.rename-tree-form": "renameTree"
   },
   
   initialize: function (options) {
@@ -35,6 +37,12 @@ App.Views.TreeCommands = Backbone.View.extend({
     event.preventDefault();
     $(".new-person-form").toggle(); // toggles visibility of form
   },
+  
+  toggleRenameTreeForm: function (event) {
+    event.preventDefault();
+    $(".rename-tree-form").toggle(); // toggles visibility of form
+  },
+  
   
   createNewPerson: function (event) {
     event.preventDefault();
@@ -99,5 +107,21 @@ App.Views.TreeCommands = Backbone.View.extend({
       this._currChangeHeadView = changeHeadView;
       $("#left-content").append(changeHeadView.render().$el);
     };
+  },
+  
+  
+  renameTree: function (event) {
+    event.preventDefault();
+    $(".rename-tree-form").toggle();
+    
+    var params = $(event.currentTarget).serializeJSON();
+    App.Models.currentTree.save(params["tree"], {
+      success: function () {
+        $("#notice").show().html( "Name changed!" ).fadeOut(3000)         
+      },
+      error: function () {
+        $("#notice").show().html( "Failed to change name" ).fadeOut(3000)
+      }
+    })
   }
 });
