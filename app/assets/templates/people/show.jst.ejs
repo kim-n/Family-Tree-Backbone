@@ -1,5 +1,3 @@
-<div class="people-container">
-
 <% if( person !== undefined){ %>
   <% _.each(person.print_info(), function (info, index) {  %>
     <% if (info.person.escape("parents_id")){ %>
@@ -21,6 +19,6 @@
 <% } else {%>
   Person unavailable!
 <% } %>
-</div>
+
   
 

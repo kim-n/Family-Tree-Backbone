@@ -3,7 +3,7 @@ App.Views.TreeCommands = Backbone.View.extend({
   
   tagName: "span",
   
-  className: "tree-commands",
+  id: "tree-commands",
   
   events: {
     "click a.delete-people-link" : "deletePeople",
@@ -36,12 +36,20 @@ App.Views.TreeCommands = Backbone.View.extend({
   
   toggleNewPersonForm: function (event) {
     event.preventDefault();
-    $(".add-person-form").toggle(); // toggles visibility of form
+    
+    var visible = $(".add-person-form").is(":visible");
+    this._restoreDefaultView();
+    
+    if (!visible) { $(".add-person-form").toggle(); }
   },
   
   toggleRenameTreeForm: function (event) {
     event.preventDefault();
-    $(".rename-tree-form").toggle(); // toggles visibility of form
+    
+    var visible = $(".rename-tree-form").is(":visible");
+    this._restoreDefaultView();
+    
+    if (!visible) { $(".rename-tree-form").toggle(); }
   },
   
   
@@ -65,42 +73,39 @@ App.Views.TreeCommands = Backbone.View.extend({
     });
   },
   
+  _restoreDefaultView: function() {
+    $(".delete-list").remove();
+    $(".change-head").remove();
+    $("#left-content").children().show();
+    $("#tree-commands > form").hide();
+  },
   
   deletePeople: function (event) {
     event.preventDefault();
-    this._currDeleteView = this._currDeleteView || null
-    
-    if (this._currChangeHeadView) { 
-      this._currChangeHeadView.remove();
-      this._currChangeHeadView = null;
-    }
-    
-    if (this._currDeleteView) { 
-      this._currDeleteView.remove();
-      this._currDeleteView = null;
+        
+    if($(".delete-list").length){
+      this._restoreDefaultView();
     } else {
+      $("#tree-commands > form").hide();
+      
+      $(".change-head").remove()
+      $("#left-content").children().hide()
       var deleteView = new App.Views.DeletePeopleList({
         model: this.model
       });
-      
-      this._currDeleteView = deleteView;
-      $("#left-content").append(deleteView.render().$el);
-    };
+      $("#left-content").append(deleteView.render().$el);      
+    }
   },
   
   changeHead: function (event) {
     event.preventDefault();
-    this._currChangeHeadView = this._currChangeHeadView || null
-    
-    if (this._currDeleteView) { 
-      this._currDeleteView.remove();
-      this._currDeleteView = null;
-    }
-    
-    if (this._currChangeHeadView) { 
-      this._currChangeHeadView.remove();
-      this._currChangeHeadView = null;
+
+    if ($(".change-head").length) { 
+      this._restoreDefaultView();
     } else {
+      $("#tree-commands > form").hide();
+      $(".delete-list").remove();
+      $("#left-content").children().hide();
       var changeHeadView = new App.Views.ChangeHead({
         model: this.model
       });

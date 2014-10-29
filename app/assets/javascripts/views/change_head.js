@@ -43,6 +43,8 @@ App.Views.ChangeHead = Backbone.View.extend({
       }
     })
     
+    $("#left-content").children().show();
+    
     $(".change-head").remove();
   }
 });

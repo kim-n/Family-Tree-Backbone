@@ -49,6 +49,8 @@ App.Views.DeletePeopleList = Backbone.View.extend({
     
     this.model.fetch();
     
+    $("#left-content").children().show();
+    
     $(".delete-list").remove();
   }
 });

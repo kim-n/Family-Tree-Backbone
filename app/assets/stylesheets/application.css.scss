@@ -21,8 +21,8 @@
 **************************************/
 
 
-html, body, header, footer, section, article, div, span,
-strong, a, img, p, h1, h2, h3, time, ul, li, small, input, select, form {
+html, body, header, footer, div, span,
+a, img, input, select, form, ul, li {
   margin: 0;
   padding: 0;
   border: 0;
@@ -32,130 +32,206 @@ strong, a, img, p, h1, h2, h3, time, ul, li, small, input, select, form {
 }
 
 body {
-  font-family: sans-serif;
-  background: transparent;
-  font-size: 16px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
   line-height: normal;
-}
-
-ul {
-  list-style: none;
-}
-
-form {
-  display: inline;
 }
 
 a {
   text-decoration: underline;
-  color: red;
 }
 
-strong {
-  font-weight: bold;
+ul {
+  list-style-type: none;
 }
 
 img {
   display: block;
 }
 
-form > div {
-  display:inline;
+form {
+  display: inline;
 }
 
-/*
-input[type="password"], input[type="text"], input[type="file"], input[type="checkbox"], textarea {
-  background: #FDF9EC;
-  font-size: 16px;
-  border: 1px solid #eee;
-  display:block;
-  width: 400px;
-  padding: 4px;
-  margin-bottom: 15px;
-}
-*/
+//::-webkit-scrollbar {
+//    -webkit-appearance: none;
+//    width: 7px;
+//}
+//::-webkit-scrollbar-thumb {
+//    border-radius: 4px;
+//    background-color: rgba(0,0,0,.5);
+//    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+//}
+
 
 /************************************** 
-*************** MY CSS ****************
+************ VARIABLES ****************
 **************************************/
 
-$background-color: #ccc;
-$people-color: green;
-$current-person-color: yellow;
-$line-border-color: green;
-$header-color: lightgreen;
-$divider-color: black;
-$info-color: pink;
-$left-column-color: lightblue;
+$blue: #92CAFF;
+$green: #99CC99;
+$yellow: #FFCC00;
+$brown: #CCB299;
+
+$background-color: #F5F5F5;
+$footer-color: $yellow;
+$people-color: #CCEE88;
+$current-person-color: $yellow;
+$line-border-color: $brown;
+$header-color: $green;
+$divider-color: $yellow;
+$info-color: $blue;
+$left-column-color: $blue;
+$full-page-color: white;
+$people-border-color: $brown;
+
+
+$person-height: 92px;
+
+.update {
+  background: #EEDD88;
+}
+
+.create {
+  background: #CCEE88;
+}
+
+.destroy {
+  background: #EEAA88;
+}
+
+input[type="submit"] {
+  background: #99EE99;
+  padding: 2px;
+}
+
+.close,
+.hide-view {
+  background: #CD5C5C;
+  text-decoration: none;
+  color: black;
+  padding: 2px;
+}
+
+input[type="submit"],
+input[type="checkbox"] {
+  display: inline; 
+  vertical-align: center;
+  text-align: left;
+}
+
+.close {
+  background: red;
+  padding:  3px 5px 3px 5px;
+}
+
+/************************************** 
+************ CUSTOM CSS ***************
+**************************************/
 
 body {
-  position: absolute;
-  height: 100%;
-  width: 100%;
   font-family: sans-serif;
   font-size: 16px;
   background: $background-color;
 }
 
+body #background{
+  position: relative;
+  height:100%; /* force the BODY element to match the height of the HTML element */
+  color: white;
+}
+
+a {
+  color: white;
+}
+
+a:visited {
+  color: white;
+};
+
 footer {
   display: none;
-  text-align: center;
-  background: black;
-  color: white;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 20px;
+  background: $footer-color;
+  text-align: center;
+  color: white;
 }
 
 header {
-  font-size: 38px;
-  font-family: verdana;
-  background: $header-color;
-  color: white;
   padding: 10px 10px 10px 10px;
-  height: 50px;
+  height: 60px;
+  background: $header-color;
 }
 
-header a {
+header a#site-name {
   text-decoration: none;
-}
-
-header #site-name { 
-  color: white; 
-  font-size: 40px;
-  font-weight: 800;
-/*  margin-left: 10px;*/
-}
-
-header #log-in-button, header #user-email, header form {
-  float: right;
-  padding-top: 20px;
-}
-
-header #log-in-button{
-  float: right;
-  padding-top: 20px;
-}
-
-header #log-in-button:hover{
+  font-family: verdana;
   color: white;
-}
-
-h1 {
-  color: orange;
+  font-size: 40px;
+  font-weight: 500;
 }
 
 #divider {
-  text-align: center;
-  font-size: 24px;
-  height: 30px;
+  height: 20px;
   width: 100%;
   background-color: $divider-color;
+  text-align: center;
+  font-size: 20px;
 }
 
-#info-container {
-  font-size: 14px;
-  height: 20px;
+#notice {
+  display: none;
+  text-align: center;
+  color: white;
+}
+
+#info-container,
+#user-info-container  {
+  height: 16px;
   background-color: $info-color;
+  font-size: 14px;
+  padding: 4px 0px 6px 0px;
+}
+
+#user-info-container {
+  position: absolute;
+  right: 0;
+  margin-right : 20px;
+  padding: 6px 0px 0px 0px;
+  margin-top: -2px;
+}
+
+.user-info > a {
+  background: #0099CC;
+  padding: 2px 4px 2px 4px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.user-sign-out-view,
+.user-sign-in-view,
+.user-create-view {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: white;
+  padding: 5px 5px 10px 5px;
+  border: 3px solid #0099CC;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+
+.add-person-form,
+.rename-tree-form{
+  display: none;
+  margin: auto;
 }
 
 #tree-info-container {
@@ -167,22 +243,20 @@ h1 {
 #tree-commands-container {
   position: absolute;
   left: 23%;
-  
+  margin-top: 1px;
 }
 
-#user-info-container {
-  position: absolute;
-  right: 0;
-  margin-right : 20px;
+#tree-commands > a {
+  text-decoration: none;
+  padding: 2px 5px 2px 5px;
+  border: 1px dashed #ccc;
+  color: white;
+  text-shadow: 1px 1px $blue;
 }
 
-
-body > div{
-  position: relative;
-  height:100%; /* force the BODY element to match the height of the HTML element */
+#tree-commands  input[type="submit"] {
+  padding: 0px 2px 0px 2px;
 }
-
-
 
 #content {
   width: 100%;
@@ -200,81 +274,35 @@ body > div{
   margin: auto;
   width: 80%;
   height: 100%;
-  background: grey;
+  background: $full-page-color;
+  color: $blue;
+}
+
+#full-content a {
+  color: $blue;
 }
 
 #split-page {
-  
+  text-align: left;
+  height: 100%;
+  width: 100%;
 }
 
 #left-content, #right-content {
-  float: left;
-  height: 90%;
-  z-index: -1;
-}
-
-#split-page  #left-content{
-  padding: 20px 0px 0px 40px;
-  min-height: 530px;
-  width: 18%;
-  background: $left-column-color;
+  display: inline-block;
+  height: 100%;
   overflow: scroll; 
 }
 
+#split-page  #left-content{
+  width: 21%;
+  background: $left-column-color;
+  border-top: 3px dotted white;
+}
+
 #split-page #right-content{
-  min-height: 500px;
-  width: 75%;
-  left: 20%;
-  padding-top: 40px;
-  overflow: scroll;
+  width: 78%;
 }
-
-//.display-off {
-//  display: none;
-//}
-
-//.is_displayed {
-//  display: inline;
-//}
-
-#flash-errors, #flash-notices {
-  text-align: center;
-  width: 50%;
-  position: absolute;
-  left: 25%;
-  top: 70px;
-  background: yellow;
-}
-
-.session-form {
-  text-align: center;
-}
-
-
-/*#actions {
-  background: lightgrey;
-}
-
-#actions > span {
-  display: none;
-}
-
-#actions > a {
-  padding: 0px 10px 0px 10px;
-}
-*/
-
-
-::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
-
 
 
 /* * * * * * * * * * * * */
@@ -285,12 +313,10 @@ body > div{
 
 
 .people-container {
-  float:left;
   position: relative;
-  top: 10px;
-  left: 10px;
   width: 100%;
-  height: 100%; 
+  height: 100%;
+  margin-top: 50px;
 }
 
 .people-container .person{ 
@@ -300,34 +326,63 @@ body > div{
 
 .people-container .person-object {
   position: relative;
-  border: 2px solid transparent;  
+  border: 4px solid transparent;  
   margin: auto;
   background: $people-color; 
-  width: 75px;
-  height: 75px;
+  width: $person-height;
+  height: $person-height;
   text-align: center;
-  font-size: 12px;
+  font-size: 16px;
   z-index: 2;
+  border-radius: 10px;
 }
 
 .people-container .current-person {
   background: $current-person-color;
 }
 
-.people-container img.person-avatar {
+.person-object > img.person-avatar {
   margin: auto;
-  width: 50px;
-  height: 50px;
+  margin-top: 3px;
+  width: 60px;
+  height: 60px;
   display: block;
+  border: 2px solid white;
+  border-radius: 5px;
+  background: white;
 }
 
-
+.person-object > a {
+  display: block;
+  height: 20px;
+  margin-top: 5px;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 5px;
+  background: white;
+  color: $blue;
+  text-decoration: none;
+  text-shadow: 1px 1px $people-color;
+}
 
 .child {
   text-align: center;
 }
+
 .spouse {
   text-align: left;
+}
+
+.person-object.highlight,
+.line.highlight{
+  border-color: $yellow;
+}
+
+.line.highlight{
+  background: $yellow;
 }
 
 
@@ -340,8 +395,7 @@ body > div{
 div.line{
   height: 1px;
   width: 1px;
-  
-  border: 1px solid $line-border-color;
+  border: 1px solid $people-border-color;
   background: $line-border-color;
   position: absolute;
 }
@@ -352,7 +406,7 @@ div.spouse-line, div.horizontal-line{
 }
 
 div.parent-line, div.child-line {
-  height: 70px;
+  height: $person-height;
 }
 
 div.dot {
@@ -364,7 +418,24 @@ div.dot {
   z-index: 3;
 }
 
+div.parent-dot {
+  position: absolute;
+  margin-top: -4px;
+  margin-left: -2px;
+  z-index: 1;
+}
 
+.spouse-line.enlargen {
+  height: 4px;
+  background: $yellow;
+  margin-top: -2px;
+}
+
+.child-dot.enlargen {
+  height: 7px;
+  width: 7px;
+  background: $yellow;
+}
 
 
 /* * * * * * * * * * * * */
@@ -386,46 +457,33 @@ div.dot {
  z-index: 3;
 }
 
-.person-options-icons {
+.person-options-icons,
+.add-spouse,
+.add-parents,
+.delete-self {
   margin-top: 100px;
 }
 
-.person-options-icons.new-spouse-icon {
-  margin-left: 60px;
+.person-options-icons.new-spouse-icon,
+.add-spouse {
+  margin-left: 80px;
 }
 
-.person-options-icons.new-parents-icon {
-  margin-left: 20px;
-}
-
-.person-options-icons.delete-person-icon {
+.person-options-icons.new-parents-icon,
+.add-parents {
   margin-left: -20px;
+}
+
+.person-options-icons.delete-person-icon,
+.delete-self {
+  margin-top: -10px;
+  margin-left: 80px;
 }
 
 .person-options-icons.edit-person-icon {
-  margin-top: -20px;
-}
-
-/*
-.person-object > form {
-  position: absolute;
-  border: 2px solid transparent;
-  margin: auto;
-  background: yellow;
-  width: 75px;
-  height: 75px;
-  text-align: center;
-  font-size: 12px;
-  z-index: 2;
-}
-
-.person-object  input[type="submit"] {
-  position: absolute;
+  margin-top: -10px;
   margin-left: -20px;
-  margin-top: -20px;
 }
-
-*/
 
 .add-tree,
 .add-spouse,
@@ -433,23 +491,17 @@ div.dot {
 .delete-self,
 .edit-self,
 .add-child {
+  display: block;
   position :absolute;
   height: auto;
   width: auto;
   text-align: center;
-  background: blue;
+  background: #99ccff;
   z-index: 3;
 }
 
-div.parent-dot {
-  position: absolute;
-  margin-top: -4px;
-  margin-left: -2px;
-  z-index: 1;
-}
-
 .icon-link {
-  background: white;
+  background: $blue;
   width: 35px;
   height: 35px;
   border-radius: 25px;
@@ -463,20 +515,11 @@ div.parent-dot {
   display: inline;
 }
 
-
-input[type="submit"],
-input[type="checkbox"] {
-  display: inline; 
-  vertical-align: center;
-  text-align: left;
-}
-
-.close {
-  background: red;
-  padding:  3px 5px 3px 5px;
-}
-
-
+/* * * * * * * * * * * * */
+/* * *             * * * */
+/* * * C O V E R S * * * */
+/* * *             * * * */
+/* * * * * * * * * * * * */
 
 .edit-self {
   background: none;
@@ -493,6 +536,14 @@ input[type="checkbox"] {
   height: 100%;
 }
 
+
+
+/* * * * * * * * * * * * * * * * */
+/* * *                     * * * */
+/* * * L E F T   L I S T S * * * */
+/* * *                     * * * */
+/* * * * * * * * * * * * * * * * */
+
 .edit-self-form {
   background: lightblue;
   position: absolute;
@@ -506,52 +557,70 @@ input[type="checkbox"] {
 .edit-self input {
 }
 
+.list-people {
+  margin: 40px 0px 0px 40px;
+}
 
-#notice {
-  text-align: center;
-  display: none;
+.list-people > li{
+  margin-top: 12px;
+}
+
+.list-people a.show-person{
+  background: $people-color;
+  text-decoration: none;
+  padding: 4px 10px 4px 10px;
   color: white;
+  text-shadow: 1px 1px $blue;
 }
 
-.user-sign-out-view,
-.user-sign-in-view,
-.user-create-view {
-  display: none;
-  background: blue;
-  position: absolute;
-  right: 0;
+.delete-list a.show-person {
+  background: #EEAA88;
 }
 
-
-.add-person-form,
-.rename-tree-form{
-  display: none;
-  margin: auto;
+.change-head a.show-person {
+  background: #EEDD88;
 }
 
-
-.delete-list,
-.change-head{
-  position: absolute;
-  left: 0;
-  top: 120px;
-  width: 18%;
-  z-index: 1;
-  background: lightgreen;
-  padding: 20px 0px 0px 40px;
-  min-height: 530px;
-  overflow: scroll;  
+.delete-list .close,
+.delete-list input[type="submit"],
+.change-head .close,
+.change-head input[type="submit"] {
+  text-align: center;
+  width: 98%;
+  font-size: 25px;
+  margin-left: 5px;
+  margin-top: 20px;
+  padding: 5px 0px 5px 0px;
 }
 
-.spouse-line.enlargen {
-  height: 4px;
+.delete-list .close,
+.change-head .close {
+  display: block;
   background: red;
-  margin-top: -2px;
+  margin-top: 5px;
+  padding: 2px 0px 2px 0px;
+}
+
+.delete-list input[type="submit"] {
+  border: 10px solid #EEAA88;
+}
+
+.change-head input[type="submit"] {
+  border: 10px solid #EEDD88;
 }
 
 
-.child-dot.enlargen {
-  height: 7px;
-  width: 7px;
-  background: red;
+
+/* * * * * * * * * * * */
+/* * *           * * * */
+/* * *   E N D   * * * */
+/* * *           * * * */
+/* * * * * * * * * * * */
+
+
+
+
+
+.child-dot:hover, .spouse-line:hover {
+  cursor: pointer;
 }

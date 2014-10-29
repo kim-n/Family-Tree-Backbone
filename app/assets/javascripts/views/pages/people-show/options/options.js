@@ -28,12 +28,13 @@ App.Views.PersonShowOptions = Backbone.View.extend({
 
   
   _buildSubView: function(event, viewClassName, View, keepPosition, container) {
-    container = typeof(container) === "undefined" ? 'body' : container
+    container = typeof(container) === "undefined" ? '.people-container' : container
     console.log("Building " + viewClassName + " subview")
     event.preventDefault();
     
-    var person_id = $(event.currentTarget).attr("class").split(" ").pop();
-    var person = App.Models.currentTree.people().get(person_id)
+    var person = App.Models.currentTree.people().get(this.person_id)
+    var $personObject = $("#" + this.person_local_id)
+    
     
     $(viewClassName).remove()
     $(".floating-subview").remove()
@@ -44,10 +45,12 @@ App.Views.PersonShowOptions = Backbone.View.extend({
     
     $(container).prepend(newView.render().$el)
     
+    var offset = ($personObject.parent().width() - $personObject.width() ) /2
+    
     if (!keepPosition){
       $(viewClassName).css({
-        top: event.pageY - 10,
-        left: event.pageX - 10
+        top: $personObject.parent().position().top - 10,
+        left: $personObject.parent().position().left + offset + 5
       });
     }
   },
@@ -70,7 +73,7 @@ App.Views.PersonShowOptions = Backbone.View.extend({
   
   editSelf: function (event) {
     console.log("edit self clicked")
-    this._buildSubView(event, ".edit-self", App.Views.PersonEditSelf, true);
+    this._buildSubView(event, ".edit-self", App.Views.PersonEditSelf, true, 'body');
   }
   
 })
