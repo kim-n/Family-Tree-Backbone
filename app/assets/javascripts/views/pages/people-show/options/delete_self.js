@@ -18,7 +18,7 @@ App.Views.PersonDeleteSelf = Backbone.View.extend({
     return this;
   },
   
-  closeView: function () {
+  closeView: function (event) {
     event.preventDefault();
     this.remove()
   },

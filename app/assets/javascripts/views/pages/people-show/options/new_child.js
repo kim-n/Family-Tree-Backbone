@@ -9,7 +9,7 @@ App.Views.PersonNewChild = Backbone.View.extend({
   
   events: {
     "submit form.new-child-form": "submit",
-    "click a.close": "close"
+    "click a.close": "closeView"
   },
   
   render: function () {
@@ -44,7 +44,7 @@ App.Views.PersonNewChild = Backbone.View.extend({
     });
   },
   
-  close: function (event) {
+  closeView: function (event) {
     event.preventDefault();
     this.remove();
   }

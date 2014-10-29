@@ -21,6 +21,7 @@ App.Views.PersonNewSpouse = Backbone.View.extend({
   
   closeView: function (event) {
     event.preventDefault();
+    console.log(this)
     this.remove();
   },
   

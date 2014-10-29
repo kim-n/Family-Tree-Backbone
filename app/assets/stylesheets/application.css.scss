@@ -74,20 +74,39 @@ $green: #99CC99;
 $yellow: #FFCC00;
 $brown: #CCB299;
 
+
 $background-color: #F5F5F5;
 $footer-color: $yellow;
-$people-color: #CCEE88;
-$current-person-color: $yellow;
-$line-border-color: $brown;
+
 $header-color: $green;
 $divider-color: $yellow;
 $info-color: $blue;
+
 $left-column-color: $blue;
 $full-page-color: white;
+
+$people-color: #CCEE88;
+$current-person-color: $brown;
+$line-border-color: $brown;
 $people-border-color: $brown;
 
 
 $person-height: 92px;
+
+$full-page-z-index: 1;
+$person-object-z-index: 2;
+$line-z-index: 1;
+$dot-z-index: 3;
+$floating-z-index: 4;
+$cover-z-index: 4;
+
+
+/* * * * * * * * * * * * * * */
+/* * * *               * * * */
+/* * * * G E N E R A L * * * */
+/* * * *               * * * */
+/* * * * * * * * * * * * * * */
+
 
 .update {
   background: #EEDD88;
@@ -266,7 +285,7 @@ header a#site-name {
 #full-page {
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: $full-page-z-index;
 }
 
 #full-page #full-content {
@@ -333,7 +352,7 @@ header a#site-name {
   height: $person-height;
   text-align: center;
   font-size: 16px;
-  z-index: 2;
+  z-index: $person-object-z-index;
   border-radius: 10px;
 }
 
@@ -402,7 +421,7 @@ div.line{
 
 div.spouse-line, div.horizontal-line{
   width: 40px;
-  z-index: 1;
+  z-index: $line-z-index;
 }
 
 div.parent-line, div.child-line {
@@ -415,14 +434,14 @@ div.dot {
   background: $line-border-color;
   border: 2px solid $line-border-color;
   border-radius: 25px;
-  z-index: 3;
+  z-index: $dot-z-index;
 }
 
 div.parent-dot {
   position: absolute;
   margin-top: -4px;
   margin-left: -2px;
-  z-index: 1;
+  z-index: $person-object-z-index;
 }
 
 .spouse-line.enlargen {
@@ -444,17 +463,11 @@ div.parent-dot {
 /* * *             * * * */
 /* * * * * * * * * * * * */
 
-.add-child {
-  width: 180px;
-  height: 30px;
-  background: lightgreen;
-  z-index: 3;
-}
 
-.add-child,
+
 .person-options-icons {
  position: absolute; 
- z-index: 3;
+ z-index: $floating-z-index;
 }
 
 .person-options-icons,
@@ -497,7 +510,7 @@ div.parent-dot {
   width: auto;
   text-align: center;
   background: #99ccff;
-  z-index: 3;
+  z-index: $floating-z-index;
 }
 
 .icon-link {
